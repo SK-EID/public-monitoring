@@ -4,7 +4,7 @@
 
 Version 1.0.9
 
-Last update 05.06.2017
+Last update 26.04.2018
 
 
 
@@ -17,8 +17,8 @@ Last update 05.06.2017
 | 1.0.5 | 09.10.14 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
 | 1.0.7 | 02.04.15 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
 | 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wordingcheck\_\*\_smsc – check described |
-| 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
-
+| 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes.|
+| 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
 
 
 Table of Contents
@@ -53,8 +53,11 @@ List of business processes:
 | _elisa_ | Mobile-ID service for Elisa (EE) customers |
 | _tele2ee_ | Mobile-ID service for Tele2 (EE) customers |
 | _omnitel\_rc_ | Mobile-ID service for Omnitel (LT) customers with RC certificates |
-| _tele2lt_ | Mobile-ID service for Tele2 (LT) customers |
+| _tele2lt_ | Mobile-ID service for Tele2 (LT) RC customers |
 | _bite_ | Mobile-ID service for (LT) Bite customers |
+| _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
+| _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
+| _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
 
 1.
   1. 1.1Structure
