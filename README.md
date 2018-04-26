@@ -2,7 +2,7 @@
 
 **SK Public Monitoring Interface Specification**
 
-Version 1.0.10
+Version 1.0.11
 
 Last update 26.04.2018
 
@@ -18,7 +18,8 @@ Last update 26.04.2018
 | 1.0.7 | 02.04.2015 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
 | 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wordingcheck\_\*\_smsc – check described |
 | 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
-| 1.0.10 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
+| 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
+| 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
 
 
 # Table of Contents
@@ -40,10 +41,10 @@ Interface generates ".json" files (from Nagios Business Processes interface) and
 
 Location of files:
 
-- --JSON: [sk.ee/util/public\_monitoring/operator\_identifier.json](http://www.sk.ee/util/public_monitoring/operator_identifier.json)
-- --XML: [sk.ee/util/public\_monitoring/xml.php?id=operator\_identifie](http://www.sk.ee/util/public_monitoring/xml.php?id=bite)r
+- --JSON: [sk.ee/util/public_monitoring/operator_identifier.json](http://www.sk.ee/util/public_monitoring/operator_identifier.json)
+- --XML: [sk.ee/util/public_monitoring/xml.php?id=operator_identifier](http://www.sk.ee/util/public_monitoring/xml.php?id=operator_identifier)
 
-Where "operator\_identifier" is the _identifier_ of the business process.
+Where "operator_identifier" is the _identifier_ of the business process.
 
 List of business processes:
 
@@ -52,13 +53,16 @@ List of business processes:
 | _emt_ | Mobile-ID service for Telia (EE) customers |
 | _elisa_ | Mobile-ID service for Elisa (EE) customers |
 | _tele2ee_ | Mobile-ID service for Tele2 (EE) customers |
-| _omnitel\_rc_ | Mobile-ID service for Omnitel (LT) customers with RC certificates |
+| _omnitel_rc_ | Mobile-ID service for Omnitel (LT) customers with RC certificates |
 | _tele2lt_ | Mobile-ID service for Tele2 (LT) customers |
 | _bite_ | Mobile-ID service for (LT) Bite customers |
+| _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
+| _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
+| _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
 
 ## 1.1. Structure
 
-**business\_process**
+**business_process**
 
 Business process block – contains information about sub list
 
@@ -75,35 +79,42 @@ Business process sub components
 | **plugin\_output** | Nagios plugin output. Usually contains detailed information about service status "SERVICE\_NAME Failure rate: x%, Failed yy of zz""OK" – Unable to read failure rate information from monitoring plugin. |
 | **service** | Name of the service: **check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks **check\_dds\_certstore\_\*** - External certificate store checks **check\_ocsp\_\*** – OCSP checks **check\_\*\_smsc** – Status of SMSCqueue = number of SMS-s in queuelink = link status (1 – link up; 0 – link down)plugin output example: (tele2 OK: queue=0, link=1") |
 
-**bp\_id**
+**bp_id**
 
 ID of Business process (short identifier)
 
-**display\_name**
+**display_name**
 
 Name of Business process
 
-**json\_created**
+**json_created**
 
 JSON report generation time
 
 ## 1.2. Description of monitoring logic and failure rates of different components
 
-|
-- **External certificate store monitoring (service syntax:**  **check\_dds\_certstore\_\***** )**
-- **Mobile operator monitoring (service syntax:**  **check\_dds2\_mssp\_\***** )**
-- **External OCSP monitoring (service syntax:**  **check\_ocsp\_\***** )**
- |
-| --- |
+
+
+- External certificate store monitoring (service syntax: check_dds_certstore_)
+- Mobile operator monitoring (service syntax: check_dds2_mssp_)
+- External OCSP monitoring (service syntax: check_ocsp_)
+
 |   | **WARNING** | **CRITICAL** | **UNKNOWN** |
+| --- | --- | --- | --- |
 | **Last 5 min** | - | all queries failed | - |
 | **Last 30 min** | at least 20 queries and 25% queries failed | at least 20 queries and 40% queries failed | less than 20 queries and at least 1 failed |
-| 1 check to change the state, check interval 4 min |
-|
-- **SK OCSP monitoring (service: check\_ocsp\_ocsp.sk.ee)**
- |
+- 1 check to change the state, check interval 4 min
+
+
+
+
+- **SK OCSP monitoring (service: check_ocsp_ocsp.sk.ee)**
+
+|   | **WARNING** | **CRITICAL** | **UNKNOWN** |
+| --- | --- | --- | --- |
 |   | - | OCSP query failed | - |
-| 2 checks to change state, check interval 3 min |
+
+- 2 checks to change state, check interval 3 min
 
 
 
@@ -111,111 +122,68 @@ JSON report generation time
 
 In order to prevent false alarms from transient problems, Nagios allows define how many times a service or host should (re)checked before considered to have a "real" problem.
 
-plugin\_output – is changing when soft state changed.
+plugin_output – is changing when soft state changed.
 
 Actual alert is issued when "hardstate" is changing to alarm state (there has to be x amount of checks to confirm that change really happened).
 
-Currently multiple check logic is used only in check\_ocsp\_ocsp.sk.ee service. Therefore in this component hardstate and plugin output may show different statuses
+Currently multiple check logic is used only in check_ocsp_ocsp.sk.ee service. Therefore in this component hardstate and plugin output may show different statuses
 
 More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/statetypes.html
 
 # 2. Examples
 ## 2.1. Example json output
 
-{
 
-   "business\_process" : {
-
+    {
+    "business_process" : {
       "hardstate" : "OK",
-
       "components" : [
-
          {
-
             "hardstate" : "OK",
-
-            "plugin\_output" : "OK Failure rate: 0%, Failed 0 of 40",
-
-            "service" : "check\_dds2\_mssp\_bite\_rc"
-
+            "plugin_output" : "OK Failure rate: 0%, Failed 0 of 40",
+            "service" : "check_dds2_mssp_bite_rc"
          },
-
          {
-
             "hardstate" : "OK",
-
-            "plugin\_output" : "RC\_WPKITSP\_STORE Failure rate: 0%, Failed 0 of 40",
-
-            "service" : "check\_dds\_certstore\_rc\_wpkitsp\_store"
-
+            "plugin_output" : "RC_WPKITSP_STORE Failure rate: 0%, Failed 0 of 40",
+            "service" : "check_dds_certstore_rc_wpkitsp_store"
          },
-
          {
-
             "hardstate" : "OK",
-
-            "plugin\_output" : "OK",
-
-            "service" : "check\_ocsp\_ocsp.rcsc.lt"
-
+            "plugin_output" : "OK",
+            "service" : "check_ocsp_ocsp.rcsc.lt"
          }
-
       ],
-
-      "bp\_id" : "bite",
-
-      "display\_name" : "BITE business process"
-
-   },
-
-   "json\_created" : "2017-05-20 13:37:01"
-
-}
+      "bp_id" : "bite",
+      "display_name" : "BITE business process"
+    },
+    "json_created" : "2017-05-20 13:37:01"
+    }
 
 ## 2.2. Example XML output
 
-<public\_monitoring>
 
-        <business\_process>
-
+    <public_monitoring>
+        <business_process>
                 <hardstate>OK</hardstate>
-
                 <components>
-
                         <hardstate>OK</hardstate>
-
-                        <plugin\_output>OK Failure rate: 0%, Failed 0 of 40</plugin\_output>
-
-                        <service>check\_dds2\_mssp\_bite\_rc</service>
-
+                        <plugin_output>OK Failure rate: 0%, Failed 0 of 40</plugin_output>
+                        <service>check_dds2_mssp_bite_rc</service>
                 </components>
-
                 <components>
-
                         <hardstate>OK</hardstate>
-
-                        <plugin\_output>RC\_WPKITSP\_STORE Failure rate: 0%, Failed 0 of 40</plugin\_output>
-
-                        <service>check\_dds\_certstore\_rc\_wpkitsp\_store</service>
-
+                        <plugin_output>RC_WPKITSP_STORE Failure rate: 0%, Failed 0 of 40</plugin_output>
+                        <service>check_dds_certstore_rc_wpkitsp_store</service>
                 </components>
-
                 <components>
-
                         <hardstate>OK</hardstate>
-
-                        <plugin\_output>OK</plugin\_output>
-
-                        <service>check\_ocsp\_ocsp.rcsc.lt</service>
-
+                        <plugin_output>OK</plugin_output>
+                        <service>check_ocsp_ocsp.rcsc.lt</service>
                 </components>
-
-                <bp\_id>bite</bp\_id>
-
-                <display\_name>BITE business process</display\_name>
-
-        </business\_process>
-
-        <json\_created>2017-05-20 13:37:01</json\_created>
-
-</public\_monitoring>
+                <bp_id>bite</bp_id>
+                <display_name>BITE business process</display_name>
+        </business_process>
+        <json_created>2017-05-20 13:37:01</json_created>
+    </public_monitoring>
+    
