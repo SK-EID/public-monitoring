@@ -2,37 +2,37 @@
 
 **SK Public Monitoring Interface Specification**
 
-Version 1.0.9
+Version 1.0.10
 
-Last update 05.06.2017
+Last update 26.04.2018
 
 
 
 | **Version** | **Date** | **Author** | **Notes** |
 | --- | --- | --- | --- |
-| 1.0.1 | 31.03.14 | Alvar Nõmmik | First version of the document. |
-| 1.0.2 | 02.04.14 | Alvar Nõmmik | Added description of monitoring logic, minor fixes |
-| 1.0.3 | 11.07.14 | Alvar Nõmmik | Added check\_rc\_getmnoid to Bite and Tele2 LT Added check\_dds2\_mssp\_bite\_rc to BiteExplanations about hard/softstate |
-| 1.0.4 | 29.07.14 | Alvar Nõmmik | Added information about SK OCSP check, minor fixes |
-| 1.0.5 | 09.10.14 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
-| 1.0.7 | 02.04.15 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
+| 1.0.1 | 31.03.2014 | Alvar Nõmmik | First version of the document. |
+| 1.0.2 | 02.04.2014 | Alvar Nõmmik | Added description of monitoring logic, minor fixes |
+| 1.0.3 | 11.07.2014 | Alvar Nõmmik | Added check\_rc\_getmnoid to Bite and Tele2 LT Added check\_dds2\_mssp\_bite\_rc to BiteExplanations about hard/softstate |
+| 1.0.4 | 29.07.2014 | Alvar Nõmmik | Added information about SK OCSP check, minor fixes |
+| 1.0.5 | 09.10.2014 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
+| 1.0.7 | 02.04.2015 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
 | 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wordingcheck\_\*\_smsc – check described |
 | 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
+| 1.0.10 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
+
+
+# Table of Contents
+* [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
+    * [1.1. Structure](#11-structure)
+    * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
+    * [1.3. Hard and soft state](#13-hard-and-soft-state)
+* [2. Examples](#2-examples)
+    * [2.1. Example json output](#21-example-json-output)
+    * [2.2. Example XML output](#22-example-xml-output)
 
 
 
-Table of Contents
-* SK public monitoring interface
-* Structure
-* Description of monitoring logic and failure rates of different components
-* "Hard" and "soft" state
-* Examples
-* Example json output
-* Example XML output
-
-
-
-1. 1SK public monitoring interface
+# 1. SK public monitoring interface
 
 SK public monitoring interface provides JSON and XML based information about availability of Mobile-ID service to mobile operator clients.
 
@@ -56,8 +56,7 @@ List of business processes:
 | _tele2lt_ | Mobile-ID service for Tele2 (LT) customers |
 | _bite_ | Mobile-ID service for (LT) Bite customers |
 
-1.
-  1. 1.1Structure
+## 1.1. Structure
 
 **business\_process**
 
@@ -88,8 +87,7 @@ Name of Business process
 
 JSON report generation time
 
-1.
-  1. 1.2Description of monitoring logic and failure rates of different components
+## 1.2. Description of monitoring logic and failure rates of different components
 
 |
 - **External certificate store monitoring (service syntax:**  **check\_dds\_certstore\_\***** )**
@@ -109,8 +107,7 @@ JSON report generation time
 
 
 
-1.
-  1. 1.3"Hard" and "soft" state
+## 1.3. Hard and soft state
 
 In order to prevent false alarms from transient problems, Nagios allows define how many times a service or host should (re)checked before considered to have a "real" problem.
 
@@ -120,10 +117,10 @@ Actual alert is issued when "hardstate" is changing to alarm state (there has to
 
 Currently multiple check logic is used only in check\_ocsp\_ocsp.sk.ee service. Therefore in this component hardstate and plugin output may show different statuses
 
-More information: http://nagios.sourceforge.net/docs/3\_0/statetypes.html
+More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/statetypes.html
 
-1. 2Examples
-  1. 2.1Example json output
+# 2. Examples
+## 2.1. Example json output
 
 {
 
@@ -175,8 +172,7 @@ More information: http://nagios.sourceforge.net/docs/3\_0/statetypes.html
 
 }
 
-1.
-  1. 2.2Example XML output
+## 2.2. Example XML output
 
 <public\_monitoring>
 
