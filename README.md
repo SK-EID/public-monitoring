@@ -21,7 +21,7 @@
 * [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
     * [1.1. Structure](#11-structure)
     * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
-    * [1.3. Time windows of monitored data](#14-time-windows-of-monitored-data)
+    * [1.3. Time windows of monitored data](#13-time-windows-of-monitored-data)
     * [1.4. Hard and soft state](#14-hard-and-soft-state)
 * [2. Examples](#2-examples)
     * [2.1. Example json output](#21-example-json-output)
@@ -75,8 +75,8 @@ Business process sub components
 
 | **hardstate** | Status of sub-process. (etc. OCSP service) Changes when _n_ number of checks failed.<br>**States:**<br>OK – component is operational<br>WARNING – component is operational; some of the requests are failing.<br>CRITICAL – component is not working correctly<br>UNKNOWN – Some of requests are failing, but the amount of requests is too low to decide is the component operational or not. |
 | --- | --- |
-| **plugin\_output** | Nagios plugin output. Usually contains detailed information about service status "SERVICE\_NAME Failure rate: x%, Failed yy of zz""OK" – Unable to read failure rate information from monitoring plugin. |
-| **service** | Name of the service: <br>**check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks <br>**check\_dds\_certstore\_\*** - External certificate store checks <br>**check\_ocsp\_\*** – OCSP checks <br>**check\_\*\_smsc** – Status of SMSCqueue = number of SMS-s in queuelink = link status (1 – link up; 0 – link down)plugin output example: (tele2 OK: queue=0, link=1") |
+| **plugin\_output** | Nagios plugin output. <br>Usually contains detailed information about service status: <br>"SERVICE\_NAME Failure rate: x%, Failed yy of zz""OK" – Unable to read failure rate information from monitoring plugin. |
+| **service** | Name of the service: <br>**check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks <br>**check\_dds\_certstore\_\*** - External certificate store checks <br>**check\_ocsp\_\*** – OCSP checks <br>**check\_\*\_smsc** – Status of SMSC<br>queue = number of SMS-s in queue<br>link = link status (1 – link up; 0 – link down)<br>plugin output example: (tele2 OK: queue=0, link=1") |
 
 **bp_id**
 
