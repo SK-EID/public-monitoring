@@ -2,11 +2,6 @@
 
 **SK Public Monitoring Interface Specification**
 
-Version 1.0.11
-
-Last update 07.05.2018
-
-
 
 | **Version** | **Date** | **Author** | **Notes** |
 | --- | --- | --- | --- |
