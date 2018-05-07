@@ -4,7 +4,7 @@
 
 Version 1.0.11
 
-Last update 26.04.2018
+Last update 07.05.2018
 
 
 
@@ -20,6 +20,7 @@ Last update 26.04.2018
 | 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
 | 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
 | 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
+| 1.0.12 | 07.05.2018| Kristjan Koskor | Added Smart-ID description of Smart-ID monitoring |
 
 
 # Table of Contents
@@ -59,6 +60,9 @@ List of business processes:
 | _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
 | _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
 | _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
+| _smart_ | Smart-ID Authnetcation and Signing transactions |
+
+
 
 ## 1.1. Structure
 
@@ -94,7 +98,6 @@ JSON report generation time
 ## 1.2. Description of monitoring logic and failure rates of different components
 
 
-
 - External certificate store monitoring (service syntax: check_dds_certstore_)
 - Mobile operator monitoring (service syntax: check_dds2_mssp_)
 - External OCSP monitoring (service syntax: check_ocsp_)
@@ -107,7 +110,6 @@ JSON report generation time
 
 
 
-
 - **SK OCSP monitoring (service: check_ocsp_ocsp.sk.ee)**
 
 |   | **WARNING** | **CRITICAL** | **UNKNOWN** |
@@ -116,9 +118,30 @@ JSON report generation time
 
 - 2 checks to change state, check interval 3 min
 
+## 1.3. Time windows of monitored data 
 
 
-## 1.3. Hard and soft state
+- Mobile operator monitoring displays the results for set amount of time. (see table below) 
+- The smaller the window the more sensitive the failure rate will be.
+- In some cases the window may be longer to compensate for smaller transaction volume.
+
+- Mobile operator monitoring (service syntax: check_dds2_mssp_)
+
+
+| **Identifier** | **Window of time** |
+| --- | --- |
+| _emt_ | 5 min. |
+| _elisa_ | 5 min. |
+| _tele2ee_ | 5 min. |
+| _omnitel_rc_ | 5 min. |
+| _tele2lt_ | 5 min. |
+| _bite_ | 5 min. |
+| _telia_sk_lt_ | 30 min. |
+| _tele2_sk_lt_ | 30 min. |
+| _bite_sk_lt_ | 30 min. |
+
+
+## 1.4. Hard and soft state
 
 In order to prevent false alarms from transient problems, Nagios allows define how many times a service or host should (re)checked before considered to have a "real" problem.
 
@@ -187,3 +210,39 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
         <json_created>2017-05-20 13:37:01</json_created>
     </public_monitoring>
     
+# 3. Smart-ID
+
+## 3.1 Structure
+|  **Key** | **Type** | **Desctiption** |
+| --- | --- | --- |
+| _public_monitoring_ | tag | Root element |
+| _itemN_ | tag | child element where N is a row number |
+| Use | _str_ | Use case / type of transaction("Authentication" or "Signing") |
+| Total | _int_ | Total number of transactions for a particular use case |
+| Success | _int_ | Number of successfully completed transactions of particular use case |
+| Failed | _int_ | Number of failed transactions of a particular use case <br />* **NB!**  This count also includes end user error cases<br /> such as when the user cancels a transaction; <br />when the user fails to repond in time; <br />when the users PIN is blocked etc. *
+|Failrate |_float_|Percent value of failed transactions from the total number of transactions of a particular use case|
+|Status|_str_|**State of service:** <br /> "OK" = failrate is lower than 5% <br />"WARN" = failrate is greater than 5%<br />"CRITICAL" = failrate is greater than 75%|
+
+
+## 3.2. Example xml output
+
+
+	<public_monitoring>
+      <item0>
+            <Use>Authentication</Use>
+          <Total>1887</Total>
+          <Success>1837</Success>
+          <Failed>50</Failed>
+          <Failrate>2.649709</Failrate>
+          <Status>OK</Status>
+      </item0>
+      <item1>
+          <Use>Signing</Use>
+          <Total>1543</Total>
+          <Success>1499</Success>
+          <Failed>44</Failed>
+          <Failrate>2.851588</Failrate>
+         <Status>OK</Status>
+      </item1>
+	</public_monitoring>
