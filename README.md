@@ -26,6 +26,9 @@
 * [2. Examples](#2-examples)
     * [2.1. Example json output](#21-example-json-output)
     * [2.2. Example XML output](#22-example-xml-output)
+* [3. Smart-ID](#3-smart-id)
+    * [3.1 Structure](#31-structure)
+    * [3.2 Example-xml-output](#32-example-xml-output)
 
 
 
