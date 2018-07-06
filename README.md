@@ -16,6 +16,7 @@
 | 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
 | 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
 | 1.0.12 | 07.05.2018| Kristjan Koskor | Added Smart-ID description of Smart-ID monitoring |
+| 1.0.13 | 06.07.2018 | Kristjan Koskor |Removed business process identifiers for _bite_ and _omnitel_rc_. |
 
 # Table of Contents
 * [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
@@ -52,9 +53,7 @@ List of business processes:
 | _emt_ | Mobile-ID service for Telia (EE) customers |
 | _elisa_ | Mobile-ID service for Elisa (EE) customers |
 | _tele2ee_ | Mobile-ID service for Tele2 (EE) customers |
-| _omnitel_rc_ | Mobile-ID service for Omnitel (LT) customers with RC certificates |
 | _tele2lt_ | Mobile-ID service for Tele2 (LT) customers |
-| _bite_ | Mobile-ID service for (LT) Bite customers |
 | _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
 | _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
 | _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
