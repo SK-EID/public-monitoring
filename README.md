@@ -157,7 +157,7 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
 # 2. Examples
 ## 2.1. Example json output
 
-
+```
     {
     "business_process" : {
       "hardstate" : "OK",
@@ -183,10 +183,10 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
     },
     "json_created" : "2017-05-20 13:37:01"
     }
-
+```
 ## 2.2. Example XML output
 
-
+```
     <public_monitoring>
         <business_process>
                 <hardstate>OK</hardstate>
@@ -210,7 +210,8 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
         </business_process>
         <json_created>2017-05-20 13:37:01</json_created>
     </public_monitoring>
-    
+```
+
 # 3. Smart-ID
 
 ## 3.1 Structure
@@ -228,7 +229,7 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
 
 ## 3.2. Example xml output
 
-
+```
 	<public_monitoring>
       <item0>
             <Use>Authentication</Use>
@@ -247,6 +248,7 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
          <Status>OK</Status>
       </item1>
 	</public_monitoring>
+```
 
 # 4. TSA 
 SK’s Time-Stamping Authority public monitoring interface if mainly useful for statistical purpouses. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average reponse time of the TSA.
@@ -261,6 +263,7 @@ The statistics are updated every 5 minutes.
 | avg_response_ms | float | Average reponse time over the past 5 minutes. |
 
 ## 4.2. Example json output
+```
 [
   {
     "req_in_5min": "1214", 
@@ -268,3 +271,4 @@ The statistics are updated every 5 minutes.
     "avg_response_ms": "45.3"
   }
 ]
+```
