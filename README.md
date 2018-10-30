@@ -11,12 +11,13 @@
 | 1.0.4 | 29.07.2014 | Alvar Nõmmik | Added information about SK OCSP check, minor fixes |
 | 1.0.5 | 09.10.2014 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
 | 1.0.7 | 02.04.2015 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
-| 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wordingcheck\_\*\_smsc – check described |
+| 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wording check\_\*\_smsc – check described |
 | 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
 | 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
 | 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
 | 1.0.12 | 07.05.2018| Kristjan Koskor | Added Smart-ID description of Smart-ID monitoring |
 | 1.0.13 | 06.07.2018 | Kristjan Koskor |Removed business process identifiers for _bite_ and _omnitel_rc_. |
+| 1.0.14 | 30.07.2018 | Kristjan Koskor |Added TSA specifications. Adjusted monitoring logic parameters mobile-ID. |
 
 # Table of Contents
 * [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
@@ -30,7 +31,9 @@
 * [3. Smart-ID](#3-smart-id)
     * [3.1 Structure](#31-structure)
     * [3.2 Example-xml-output](#32-example-xml-output)
-
+ * [4. TSA](#4-tsa)
+    * [4.1 Structure](#41-structure)
+    * [4.2 Example-xml-output](#42-example-json-output)
 
 
 # 1. SK public monitoring interface
@@ -58,6 +61,7 @@ List of business processes:
 | _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
 | _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
 | _smart_ | Smart-ID Authnetcation and Signing transactions |
+| _tsa_ | Time-Stamping Authority statistics |
 
 
 
@@ -102,7 +106,7 @@ JSON report generation time
 |   | **WARNING** | **CRITICAL** | **UNKNOWN** |
 | --- | --- | --- | --- |
 | **Last 5 min** | - | all queries failed | - |
-| **Last 30 min** | at least 20 queries and 25% queries failed | at least 20 queries and 40% queries failed | less than 20 queries and at least 1 failed |
+| **Last 30 min** | at least 100 queries and 25% queries failed | at least 100 queries and 40% queries failed | less than 100 queries and at least 1 failed |
 - 1 check to change the state, check interval 4 min
 
 
@@ -133,9 +137,9 @@ JSON report generation time
 | _omnitel_rc_ | 5 min. |
 | _tele2lt_ | 5 min. |
 | _bite_ | 5 min. |
-| _telia_sk_lt_ | 30 min. |
-| _tele2_sk_lt_ | 30 min. |
-| _bite_sk_lt_ | 30 min. |
+| _telia_sk_lt_ | 5 min. |
+| _tele2_sk_lt_ | 5 min. |
+| _bite_sk_lt_ | 5 min. |
 
 
 ## 1.4. Hard and soft state
@@ -243,3 +247,24 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
          <Status>OK</Status>
       </item1>
 	</public_monitoring>
+
+# 4. TSA 
+SK’s Time-Stamping Authority public monitoring interface if mainly useful for statistical purpouses. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average reponse time of the TSA.
+The statistics are updated every 5 minutes.
+
+## 4.1 Structure
+
+|  **Key** | **Type** | **Desctiption** |
+| --- | --- | --- |
+| "req_in_5min_ | int | Number of request in the past 5 minutes. |
+| latest_OK | datetime | Date and time of the latest succesful response (at the time of json generation) |
+| avg_response_ms | float | Average reponse time over the past 5 minutes. |
+
+## 4.2. Example json output
+[
+  {
+    "req_in_5min": "1214", 
+    "latest_OK": "10/30/2018 14:50:02", 
+    "avg_response_ms": "45.3"
+  }
+]
