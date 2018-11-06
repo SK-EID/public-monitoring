@@ -1,7 +1,4 @@
-**SK ID Solutions AS**
-
-**SK Public Monitoring Interface Specification**
-
+**SK ID Solutions AS Public Monitoring and Statistics Interface Specification**
 
 | **Version** | **Date** | **Author** | **Notes** |
 | --- | --- | --- | --- |
@@ -19,10 +16,10 @@
 | 1.0.13 | 06.07.2018 | Kristjan Koskor |Removed business process identifiers for _bite_ and _omnitel_rc_. |
 | 1.0.14 | 30.07.2018 | Kristjan Koskor |Added TSA specifications. Adjusted monitoring logic parameters mobile-ID. |
 | 1.0.15 | 06.11.2018 | Kalle Keskrand | Added Trust Services specifications. |
-
+| 1.0.16 | 06.11.2018 | Kristjan Koskor | Added statistics interface specification| 
 
 # Table of Contents
-* [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
+* [1. Mobile-ID](#1-mobile-id)
     * [1.1. Structure](#11-structure)
     * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
     * [1.3. Time windows of monitored data](#13-time-windows-of-monitored-data)
@@ -39,8 +36,11 @@
 * [5. Trust Services](#5-trust-services)
     * [5.1 Structure](#51-structure)
     * [5.2 Example-json-output](#52-example-json-output)
+* [6. Statistics interface](#6-statistics-interface)
+    * [6.1 Descriptions of data objects](#61-descriptions-of-data-objects)
+    
 
-# 1. SK public monitoring interface
+# 1. Mobile-ID
 
 SK public monitoring interface provides JSON and XML based information about availability of Mobile-ID service to mobile operator clients.
 
@@ -64,7 +64,7 @@ List of business processes:
 | _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
 | _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
 | _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
-| _smart_ | Smart-ID Authnetcation and Signing transactions |
+| _smart_ | Smart-ID Authentication and Signing transactions |
 | _tsa_ | Time-Stamping Authority statistics |
 
 
@@ -340,3 +340,25 @@ Location of json file: https://www.sk.ee/util/public_monitoring/trust_srv.json
     "json_created": "2018-11-02 11:10:02"
 }
 ```
+
+# 6. Statistics interface
+Where ever needed, you can use these numbers to illustrate your presentations, analyses, website. 
+Data is available at  https://minutoimingud.sk.ee/cards.json
+Data is generated once a day and includes the data until 23:59 for the previous day.
+
+## 6.1 Descriptions of data objects
+|  **Key** | **Desctiption** |
+| --- | --- |
+| activeSID_LV | Number of active Smart-ID unique users in Latvia |
+| last_month | Number of validity confirmations provided for certificates issued by SK through ocsp.sk.ee service for previous calendar month. |
+| yesterday_SID | Number of Smart-ID transactions during a day before data was generated |
+| activeIDCards | Number of active Estonian ID-cards |
+| Signatures | Number of validity confirmations provided for signing certificates issued by SK through ocsp.sk.ee service for the period from 2002 until the day before data was generated. This number must not be interpreted as signatures. |
+| Authentications | Number of validity confirmations provided for authentication certificates issued by SK through ocsp.sk.ee service for the period from 2002 until the day before data was generated. This number must not be interpreted as authentications. |
+| Yesterday | Number of validity confirmations provided for certificates issued by SK through ocsp.sk.ee service during a day before data was generated. |
+| activeMID | Number of active Mobile-ID unique users in Estonia |
+| last_month_SID | Number of Smart-ID transactions during previous calendar month | 
+| activeSID_EE | Number of active Smart-ID unique users in Estonia | 
+| activeSID | Number of active Smart-ID unique users in total (over all countries) | 
+| activeSID_LT | Number of active Smart-ID unique users in Lithuania | 
+| reportExecuted | Date and time when data was generated | 
