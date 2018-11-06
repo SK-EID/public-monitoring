@@ -18,6 +18,8 @@
 | 1.0.12 | 07.05.2018| Kristjan Koskor | Added Smart-ID description of Smart-ID monitoring |
 | 1.0.13 | 06.07.2018 | Kristjan Koskor |Removed business process identifiers for _bite_ and _omnitel_rc_. |
 | 1.0.14 | 30.07.2018 | Kristjan Koskor |Added TSA specifications. Adjusted monitoring logic parameters mobile-ID. |
+| 1.0.15 | 06.11.2018 | Kalle Keskrand | Added Trust Services specifications. |
+
 
 # Table of Contents
 * [1. SK public monitoring interface](#1-sk-public-monitoring-interface)
@@ -31,10 +33,12 @@
 * [3. Smart-ID](#3-smart-id)
     * [3.1 Structure](#31-structure)
     * [3.2 Example-xml-output](#32-example-xml-output)
- * [4. TSA](#4-tsa)
+* [4. TSA](#4-tsa)
     * [4.1 Structure](#41-structure)
     * [4.2 Example-xml-output](#42-example-json-output)
-
+* [5. Trust Services](#5-trust-services)
+    * [5.1 Structure](#51-structure)
+    * [5.2 Example-json-output](#52-example-json-output)
 
 # 1. SK public monitoring interface
 
@@ -271,4 +275,68 @@ The statistics are updated every 5 minutes.
     "avg_response_ms": "45.3"
   }
 ]
+```
+
+# 5. Trust Services
+SK public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.
+Interface generates ".json" file, using Zabbix API. Generating interval is 10 min.
+Location of json file: https://www.sk.ee/util/public_monitoring/trust_srv.json
+
+## 5.1 Structure
+|  **Key** | **Type** | **Desctiption** |
+| --- | --- | --- |
+| status | str | Status can be "OK" or "DOWN". </br>This indicator contain different servers and components according current service. Status is "OK" when all necessary servers are up and running and critical services respond for test queries. |
+| valid_hours | int | Key for CLR-s. Shows number of hours while CRL is valid. |
+| CRL |  | Monitor of CRL validity for next CAs: </br>EECCRCA - root CA, validity 3 months; </br>EID2011, ESTEID2011, ESTEID2015, KLASS3-2010 - validity 12 hours |
+| MobileIDIssuance | | Status of Mobile-ID issuance service. |
+| Smart-IDIssuanceOnline | | Status of Smart-ID online issuance service. |
+| Smart-IDIssuanceRA | | Status of Smart-ID issuance service for bank offices. |
+| SmartIDs_issued_in_last_60_min | | Shows the number of Smart-IDs issued in last 60 min. |
+| issued | int | Number of issued Smart-IDs. |
+| last_issuance | datetime | Time of last Smart-ID issuance. |
+| json_created | datetime | Time of creation for current json. </br>NB! This json cannot be older than 10 min, otherwise monitor itself is down. |
+
+## 5.2. Example json output
+```
+{
+    "CRL": {
+        "EECCRCA": {
+            "status": "OK",
+            "valid_hours": "482"
+        },
+        "EID2011": {
+            "status": "OK",
+            "valid_hours": "11"
+        },
+        "ESTEID2011": {
+            "status": "OK",
+            "valid_hours": "8"
+        },
+        "ESTEID2015": {
+            "status": "OK",
+            "valid_hours": "11"
+        },
+        "KLASS3-2010": {
+            "status": "OK",
+            "valid_hours": "7"
+        },
+        "status": "OK"
+    },
+    "MobileIDIssuance": {
+        "status": "OK"
+    },
+    "Smart-IDIssuanceOnline": {
+        "status": "OK"
+    },
+    "Smart-IDIssuanceRA": {
+        "status": "OK"
+    },
+    "SmartIDs_issued_in_last_60_min": {
+        "info": {
+            "issued": "614",
+            "last_issuance": "2018-11-02 11:07:14"
+        }
+    },
+    "json_created": "2018-11-02 11:10:02"
+}
 ```
