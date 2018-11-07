@@ -9,14 +9,15 @@
 | 1.0.5 | 09.10.2014 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
 | 1.0.7 | 02.04.2015 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
 | 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wording check\_\*\_smsc – check described |
-| 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formating fixes|
+| 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formatting fixes|
 | 1.0.10 | 26.04.2018 | Kristjan Koskor |Added LT-SK business process identifiers for Telia, Tele2 and Bite. |
-| 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formating changed |
+| 1.0.11 | 26.04.2018| Alvar Nõmmik | Documentation formatting changed |
 | 1.0.12 | 07.05.2018| Kristjan Koskor | Added Smart-ID description of Smart-ID monitoring |
 | 1.0.13 | 06.07.2018 | Kristjan Koskor |Removed business process identifiers for _bite_ and _omnitel_rc_. |
 | 1.0.14 | 30.07.2018 | Kristjan Koskor |Added TSA specifications. Adjusted monitoring logic parameters mobile-ID. |
 | 1.0.15 | 06.11.2018 | Kalle Keskrand | Added Trust Services specifications. |
-| 1.0.16 | 06.11.2018 | Kristjan Koskor | Added statistics interface specification| 
+| 1.0.16 | 06.11.2018 | Kristjan Koskor | Added general statistics interface specification|
+| 1.0.17 | 07.11.2018 | Kristjan Koskor | Added OCSP services |
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -36,9 +37,20 @@
 * [5. Trust Services](#5-trust-services)
     * [5.1 Structure](#51-structure)
     * [5.2 Example-json-output](#52-example-json-output)
-* [6. Statistics interface](#6-statistics-interface)
+* [6. General statistics interface](#6-general-statistics-interface)
     * [6.1 Descriptions of data objects](#61-descriptions-of-data-objects)
-    
+    * [6.2 OCSP](#62-ocsp)
+        * [6.2.1 Structure](#621-structure)
+        * [6.2.2 Example-json-output](#622-example-json-output)
+    * [6.3 AIA OCSP](#63-aia-ocsp)
+        * [6.3.1 Structure](#631-structure)
+        * [6.3.2 Example-json-output](#632-example-json-output)
+    * [6.4 PROXY OCSP](#64-proxy-ocsp)
+        * [6.4.1 Structure](#641-structure)
+        * [6.4.2 Example-json-output](#642-example-json-output)
+    * [6.5 PROXY OCSP DETAILS](#65-proxy-ocsp-details)
+        * [6.5.1 Structure](#641-structure)
+        * [6.5.2 Example-json-output](#642-example-json-output)    
 
 # 1. Mobile-ID
 
@@ -66,6 +78,10 @@ List of business processes:
 | _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
 | _smart_ | Smart-ID Authentication and Signing transactions |
 | _tsa_ | Time-Stamping Authority statistics |
+| _ocsp_ | OCSP Statistics |
+| _aia_ocsp_ | AIA OCSP Statistics |
+| _proxy_ocsp_ | Proxy OCSP Statistics |
+| _proxy_ocsp_details_ | Proxy OCSP Statistics by CA|
 
 
 
@@ -148,7 +164,7 @@ JSON report generation time
 
 ## 1.4. Hard and soft state
 
-In order to prevent false alarms from transient problems, Nagios allows define how many times a service or host should (re)checked before considered to have a "real" problem.
+In order to prevent false alarms from transient problems, Nagios allows to define how many times a service or host should be (re)checked before considered to have a "real" problem.
 
 plugin_output – is changing when soft state changed.
 
@@ -219,15 +235,15 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
 # 3. Smart-ID
 
 ## 3.1 Structure
-|  **Key** | **Type** | **Desctiption** |
+|  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | _public_monitoring_ | tag | Root element |
 | _itemN_ | tag | child element where N is a row number |
 | Use | _str_ | Use case / type of transaction("Authentication" or "Signing") |
 | Total | _int_ | Total number of transactions for a particular use case |
 | Success | _int_ | Number of successfully completed transactions of particular use case |
-| Failed | _int_ | Number of failed transactions of a particular use case <br />* **NB!**  This count also includes end user error cases<br /> such as when the user cancels a transaction; <br />when the user fails to repond in time; <br />when the users PIN is blocked etc. *
-|Failrate |_float_|Percent value of failed transactions from the total number of transactions of a particular use case|
+| Failed | _int_ | Number of failed transactions of a particular use case <br />* **NB!**  This count also includes end user error cases<br /> such as when the user cancels a transaction; <br />when the user fails to respond in time; <br />when the users PIN is blocked etc. *
+|Failrate |_float_|Percentage of failed transactions of the total number of transactions of a particular use case|
 |Status|_str_|**State of service:** <br /> "OK" = failrate is lower than 5% <br />"WARN" = failrate is greater than 5%<br />"CRITICAL" = failrate is greater than 75%|
 
 
@@ -255,16 +271,16 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
 ```
 
 # 4. TSA 
-SK’s Time-Stamping Authority public monitoring interface if mainly useful for statistical purpouses. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average reponse time of the TSA.
+SK’s Time-Stamping Authority public monitoring interface is mainly useful for statistical purposes. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average response time of the TSA.
 The statistics are updated every 5 minutes.
 
 ## 4.1 Structure
 
-|  **Key** | **Type** | **Desctiption** |
+|  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | "req_in_5min_ | int | Number of request in the past 5 minutes. |
 | latest_OK | datetime | Date and time of the latest succesful response (at the time of json generation) |
-| avg_response_ms | float | Average reponse time over the past 5 minutes. |
+| avg_response_ms | float | Average response time over the past 5 minutes. |
 
 ## 4.2. Example json output
 ```
@@ -278,14 +294,14 @@ The statistics are updated every 5 minutes.
 ```
 
 # 5. Trust Services
-SK public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.</br>
+The public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.</br>
 Interface generates ".json" file, using Zabbix API. Generating interval is 10 min.</br>
 Location of json file: https://www.sk.ee/util/public_monitoring/trust_srv.json
 
 ## 5.1 Structure
-|  **Key** | **Type** | **Desctiption** |
+|  **Key** | **Type** | **Description** |
 | --- | --- | --- |
-| status | str | Status can be "OK" or "DOWN". </br>This indicator contain different servers and components according current service. Status is "OK" when all necessary servers are up and running and critical services respond for test queries. |
+| status | str | Status can be "OK" or "DOWN". </br>This indicator contains different servers and components according to the current service. Status is "OK" when all necessary servers are up and running and critical services respond for test queries. |
 | valid_hours | int | Key for CLR-s. Shows number of hours while CRL is valid. |
 | CRL |  | Monitor of CRL validity for next CAs: </br>EECCRCA - root CA, validity 3 months; </br>EID2011, ESTEID2011, ESTEID2015, KLASS3-2010 - validity 12 hours |
 | MobileIDIssuance | | Status of Mobile-ID issuance service. |
@@ -341,13 +357,13 @@ Location of json file: https://www.sk.ee/util/public_monitoring/trust_srv.json
 }
 ```
 
-# 6. Statistics interface
+# 6. General statistics interface
 Where ever needed, you can use these numbers to illustrate your presentations, analyses, website. 
 Data is available at  https://minutoimingud.sk.ee/cards.json
 Data is generated once a day and includes the data until 23:59 for the previous day.
 
 ## 6.1 Descriptions of data objects
-|  **Key** | **Desctiption** |
+|  **Key** | **Description** |
 | --- | --- |
 | activeSID_LV | Number of active Smart-ID unique users in Latvia |
 | last_month | Number of validity confirmations provided for certificates issued by SK through ocsp.sk.ee service for previous calendar month. |
@@ -361,4 +377,86 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | activeSID_EE | Number of active Smart-ID unique users in Estonia | 
 | activeSID | Number of active Smart-ID unique users in total (over all countries) | 
 | activeSID_LT | Number of active Smart-ID unique users in Lithuania | 
-| reportExecuted | Date and time when data was generated | 
+| reportExecuted | Date and time when data was generated |
+
+## 6.2 OCSP
+### 6.2.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms|float | Avaerage response time in the past 5 minutes |
+
+### 6.2.2 Example json output
+```
+[
+  {
+    "req_in_5min": "4687",
+    "latest_OK": "11/07/2018 20:38:00.143624",
+    "avg_response_ms": "6.8"
+  }
+]
+```
+
+### 6.3 AIA OCSP
+### 6.3.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms | float | Avaerage response time in the past 5 minutes |
+
+### 6.3.2 Example json output
+```
+[
+  {
+    "req_in_5min": "953",
+    "latest_OK": "11/07/2018 20:39:00.015364",
+    "avg_response_ms": "5.7"
+  }
+]
+```
+
+### 6.4 PROXY OCSP 
+### 6.4.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms | float | Avaerage response time in the past 5 minutes |
+
+### 6.4.2 Example json output
+```
+[
+  {
+    "req_in_5min": "122",
+    "latest_OK": "11/07/2018 20:39:25.215708",
+    "avg_response_ms": "50.9"
+  }
+]
+```
+
+### 6.5 PROXY OCSP Details
+This interface provides statistics on every proxied CA.
+Statistics wil be displayed for every CA that has responded in the past 5 minutes in a separate block.
+If a particular CA has not responded in the past 5 minutes - its block will be omitted.
+
+### 6.5.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| responder | text | Name of the responding CA |
+| resp_in_5min | int | Number of responses in the past 5 minutes from the particular CA |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms |float | Avaerage response time in the past 5 minutes |
+
+### 6.5.1 Example json output
+```
+[
+  {
+    "responder": "ocsp2.rcsc.lt",
+    "resp_in_5min": "122",
+    "latest_OK": "11/07/2018 20:39:25.215708",
+    "avg_response_ms": "50.9"
+  }
+]
+```
