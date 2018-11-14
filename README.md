@@ -39,18 +39,18 @@
     * [5.2 Example-json-output](#52-example-json-output)
 * [6. General statistics interface](#6-general-statistics-interface)
     * [6.1 Descriptions of data objects](#61-descriptions-of-data-objects)
-    * [6.2 OCSP](#62-ocsp)
-        * [6.2.1 Structure](#621-structure)
-        * [6.2.2 Example-json-output](#622-example-json-output)
-    * [6.3 AIA OCSP](#63-aia-ocsp)
-        * [6.3.1 Structure](#631-structure)
-        * [6.3.2 Example-json-output](#632-example-json-output)
-    * [6.4 PROXY OCSP](#64-proxy-ocsp)
-        * [6.4.1 Structure](#641-structure)
-        * [6.4.2 Example-json-output](#642-example-json-output)
-    * [6.5 PROXY OCSP DETAILS](#65-proxy-ocsp-details)
-        * [6.5.1 Structure](#641-structure)
-        * [6.5.2 Example-json-output](#642-example-json-output)    
+* [7. OCSP](#7-ocsp)
+    * [7.1 Structure](#71-structure)
+    * [7.2 Example-json-output](#72-example-json-output)
+* [8 AIA OCSP](#8-aia-ocsp)
+    * [8.1 Structure](#81-structure)
+    * [8.2 Example-json-output](#82-example-json-output)
+* [9 PROXY OCSP](#9-proxy-ocsp)
+    * [9.1 Structure](#91-structure)
+    * [9.2 Example-json-output](#92-example-json-output)
+* [10 PROXY OCSP DETAILS](#10-proxy-ocsp-details)
+    * [10.1 Structure](#101-structure)
+    * [10.2 Example-json-output](#102-example-json-output)    
 
 # 1. Mobile-ID
 
@@ -79,9 +79,9 @@ List of business processes:
 | _smart_ | Smart-ID Authentication and Signing transactions |
 | _tsa_ | Time-Stamping Authority statistics |
 | _ocsp_ | OCSP Statistics |
-| _aia_ocsp_ | AIA OCSP Statistics |
-| _proxy_ocsp_ | Proxy OCSP Statistics |
-| _proxy_ocsp_details_ | Proxy OCSP Statistics by CA|
+| _ocsp_aia_ | AIA OCSP Statistics |
+| _ocsp_proxy_ | Proxy OCSP Statistics |
+| _ocsp_proxy_details_ | Proxy OCSP Statistics by CA|
 
 
 
@@ -379,15 +379,15 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | activeSID_LT | Number of active Smart-ID unique users in Lithuania | 
 | reportExecuted | Date and time when data was generated |
 
-## 6.2 OCSP
-### 6.2.1 Structure
+## 7. OCSP
+### 7.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms|float | Avaerage response time in the past 5 minutes |
 
-### 6.2.2 Example json output
+### 7.2 Example json output
 ```
 [
   {
@@ -398,15 +398,15 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ]
 ```
 
-### 6.3 AIA OCSP
-### 6.3.1 Structure
+### 8 AIA OCSP
+### 8.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms | float | Avaerage response time in the past 5 minutes |
 
-### 6.3.2 Example json output
+### 8.2 Example json output
 ```
 [
   {
@@ -417,15 +417,15 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ]
 ```
 
-### 6.4 PROXY OCSP 
-### 6.4.1 Structure
+### 9 PROXY OCSP 
+### 9.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms | float | Avaerage response time in the past 5 minutes |
 
-### 6.4.2 Example json output
+### 9.2 Example json output
 ```
 [
   {
@@ -436,12 +436,12 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ]
 ```
 
-### 6.5 PROXY OCSP Details
+### 10 PROXY OCSP Details
 This interface provides statistics on every proxied CA.
 Statistics wil be displayed for every CA that has responded in the past 5 minutes in a separate block.
 If a particular CA has not responded in the past 5 minutes - its block will be omitted.
 
-### 6.5.1 Structure
+### 10.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | responder | text | Name of the responding CA |
@@ -449,7 +449,7 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms |float | Avaerage response time in the past 5 minutes |
 
-### 6.5.1 Example json output
+### 10.2 Example json output
 ```
 [
   {
