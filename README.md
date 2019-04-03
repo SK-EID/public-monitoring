@@ -18,6 +18,7 @@
 | 1.0.15 | 06.11.2018 | Kalle Keskrand | Added Trust Services specifications. |
 | 1.0.16 | 06.11.2018 | Kristjan Koskor | Added general statistics interface specification|
 | 1.0.17 | 07.11.2018 | Kristjan Koskor | Added OCSP services |
+| 1.0.18 | 03.04.2019 | Kristjan Koskor | Updated B Business process subcomponents. Link status info is temporarily unavailable.|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -102,7 +103,7 @@ Business process sub components
 | **hardstate** | Status of sub-process. (etc. OCSP service) Changes when _n_ number of checks failed.<br>**States:**<br>OK – component is operational<br>WARNING – component is operational; some of the requests are failing.<br>CRITICAL – component is not working correctly<br>UNKNOWN – Some of requests are failing, but the amount of requests is too low to decide is the component operational or not. |
 | --- | --- |
 | **plugin\_output** | Nagios plugin output. <br>Usually contains detailed information about service status: <br>"SERVICE\_NAME Failure rate: x%, Failed yy of zz""OK" – Unable to read failure rate information from monitoring plugin. |
-| **service** | Name of the service: <br>**check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks <br>**check\_dds\_certstore\_\*** - External certificate store checks <br>**check\_ocsp\_\*** – OCSP checks <br>**check\_\*\_smsc** – Status of SMSC<br>queue = number of SMS-s in queue<br>link = link status (1 – link up; 0 – link down)<br>plugin output example: (tele2 OK: queue=0, link=1") |
+| **service** | Name of the service: <br>**check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks <br>**check\_dds\_certstore\_\*** - External certificate store checks <br>**check\_ocsp\_\*** – OCSP checks <br>**check\_\*\_smsc** – Status of SMSC<br>queue = number of SMS-s in queue<br>~~link = link status (1 – link up; 0 – link down)~~-(link status info is temporarily unavailable as of 03.04.2019) <br>plugin output example: (tele2 OK: queue=0, link=1") |
 
 **bp_id**
 
