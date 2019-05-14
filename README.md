@@ -1,12 +1,26 @@
 **SK ID Solutions AS Public Monitoring and Statistics Interface Specification**
 
+---
+> **_NOTE:_**  
+> Our pulic monitoring interface is going through some changes!
+
+>As you may have noticed, http://www.sk.ee/util/public_monitoring/ is currently redirected to http://62.65.42.45/util/public_monitoring/.
+
+>This is due to changes in our web servers and hosting. 
+
+>After 15.06.2019 both of these addresses will be depricated and no longer in use.
+>The new address will be http://status.sk.ee/v1/.
+
+>We will update this document once the new address is functional.
+---
+
 | **Version** | **Date** | **Author** | **Notes** |
 | --- | --- | --- | --- |
 | 1.0.1 | 31.03.2014 | Alvar Nõmmik | First version of the document. |
 | 1.0.2 | 02.04.2014 | Alvar Nõmmik | Added description of monitoring logic, minor fixes |
 | 1.0.3 | 11.07.2014 | Alvar Nõmmik | Added check\_rc\_getmnoid to Bite and Tele2 LT Added check\_dds2\_mssp\_bite\_rc to BiteExplanations about hard/softstate |
 | 1.0.4 | 29.07.2014 | Alvar Nõmmik | Added information about SK OCSP check, minor fixes |
-| 1.0.5 | 09.10.2014 | Alvar Nõmmik,Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
+| 1.0.5 | 09.10.2014 | Alvar Nõmmik, Urmo Keskel | Monitoring logic changes  see p .1.2, new state UNKNOWN added Change of plugin output pattern, new format "Failure rate zz%, Failed xx of yy"Updated the sample of json and XML output |
 | 1.0.7 | 02.04.2015 | Alvar Nõmmik | Added check for SMSC status (Tele2EE and EMT) - check\_\*\_smscExamples updated and added CRITICAL scenario |
 | 1.0.8 | 05.06.2017 | Alvar Nõmmik | check\_dds2\_mssp\_elisa (Legacy Elisa mssp check) - removedcheck\_rc\_getmnoid – removedomnitel\_sk business process - removedMinor fixes in wording check\_\*\_smsc – check described |
 | 1.0.9 | 24.04.2018 | Kristjan Koskor | Converted to .md format. <br /> Published on github. <br />Minor formatting fixes|
