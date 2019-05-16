@@ -32,7 +32,9 @@
 | 1.0.15 | 06.11.2018 | Kalle Keskrand | Added Trust Services specifications. |
 | 1.0.16 | 06.11.2018 | Kristjan Koskor | Added general statistics interface specification|
 | 1.0.17 | 07.11.2018 | Kristjan Koskor | Added OCSP services |
-| 1.0.18 | 03.04.2019 | Kristjan Koskor | Updated B Business process subcomponents. Link status info is temporarily unavailable.|
+| 1.0.18 | 03.04.2019 | Kristjan Koskor | Updated Business process subcomponents. Link status info is temporarily unavailable.|
+| 1.0.19 | 16.05.2019 | Kristjan Koskor | Added json_created to outputs where it was still missing.|
+| 1.0.20 | 16.05.2019 | Kristjan Koskor | Updated json output url path to _status.sk.ee/*_ .|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -75,8 +77,9 @@ Interface generates ".json" files (from Nagios Business Processes interface) and
 
 Location of files:
 
-- JSON: [sk.ee/util/public_monitoring/operator_identifier.json](http://www.sk.ee/util/public_monitoring/operator_identifier.json)
+- JSON: [https://status.sk.ee/v1/operator_identifier.json](https://status.sk.ee/v1/operator_identifier.json)
 - XML: [sk.ee/util/public_monitoring/xml.php?id=operator_identifier](http://www.sk.ee/util/public_monitoring/xml.php?id=operator_identifier)
+>NOTE: XML output will be depricated on 15.06.2019 and will no longer be available.
 
 Where "operator_identifier" is the _identifier_ of the business process.
 
@@ -260,6 +263,7 @@ More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore
 | Failed | _int_ | Number of failed transactions of a particular use case <br />* **NB!**  This count also includes end user error cases<br /> such as when the user cancels a transaction; <br />when the user fails to respond in time; <br />when the users PIN is blocked etc. *
 |Failrate |_float_|Percentage of failed transactions of the total number of transactions of a particular use case|
 |Status|_str_|**State of service:** <br /> "OK" = failrate is lower than 5% <br />"WARN" = failrate is greater than 5%<br />"CRITICAL" = failrate is greater than 75%|
+| json_created | _date/time_ | Date and time when the output was generated |
 
 
 ## 3.2. Example xml output
@@ -296,6 +300,7 @@ The statistics are updated every 5 minutes.
 | "req_in_5min_ | int | Number of request in the past 5 minutes. |
 | latest_OK | datetime | Date and time of the latest succesful response (at the time of json generation) |
 | avg_response_ms | float | Average response time over the past 5 minutes. |
+| json_created | _date/time_ | Date and time when the output was generated |
 
 ## 4.2. Example json output
 ```
@@ -303,7 +308,8 @@ The statistics are updated every 5 minutes.
   {
     "req_in_5min": "1214", 
     "latest_OK": "10/30/2018 14:50:02", 
-    "avg_response_ms": "45.3"
+    "avg_response_ms": "45.3",
+    "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
@@ -401,6 +407,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms|float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
 
 ### 7.2 Example json output
 ```
@@ -408,7 +415,8 @@ Data is generated once a day and includes the data until 23:59 for the previous 
   {
     "req_in_5min": "4687",
     "latest_OK": "11/07/2018 20:38:00.143624",
-    "avg_response_ms": "6.8"
+    "avg_response_ms": "6.8",
+     "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
@@ -420,6 +428,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms | float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
 
 ### 8.2 Example json output
 ```
@@ -427,7 +436,8 @@ Data is generated once a day and includes the data until 23:59 for the previous 
   {
     "req_in_5min": "953",
     "latest_OK": "11/07/2018 20:39:00.015364",
-    "avg_response_ms": "5.7"
+    "avg_response_ms": "5.7",
+     "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
@@ -439,6 +449,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | req_in_5min | int | Number of requests in the past 5 minutes |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms | float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
 
 ### 9.2 Example json output
 ```
@@ -446,7 +457,8 @@ Data is generated once a day and includes the data until 23:59 for the previous 
   {
     "req_in_5min": "122",
     "latest_OK": "11/07/2018 20:39:25.215708",
-    "avg_response_ms": "50.9"
+    "avg_response_ms": "50.9",
+     "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
@@ -463,6 +475,7 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
 | resp_in_5min | int | Number of responses in the past 5 minutes from the particular CA |
 | latest_OK | datetime | Date and time of the last RFC2560 'good' response |
 | avg_response_ms |float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
 
 ### 10.2 Example json output
 ```
@@ -471,7 +484,8 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
     "responder": "ocsp2.rcsc.lt",
     "resp_in_5min": "122",
     "latest_OK": "11/07/2018 20:39:25.215708",
-    "avg_response_ms": "50.9"
+    "avg_response_ms": "50.9",
+    "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
