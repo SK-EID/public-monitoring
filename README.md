@@ -315,9 +315,10 @@ The statistics are updated every 5 minutes.
 ```
 
 # 5. Trust Services
-The public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.</br>
-Interface generates ".json" file, using Zabbix API. Generating interval is 10 min.</br>
-Location of json file: https://www.sk.ee/util/public_monitoring/trust_srv.json
+The public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.<br>
+Interface generates ".json" file, using Zabbix API. Generating interval is 10 min.<br>
+Location of json file: https://status.sk.ee/v1/trust_srv.json<br>
+Location of test json file: https://status.sk.ee/v1/trust_srv_test.json
 
 ## 5.1 Structure
 |  **Key** | **Type** | **Description** |
