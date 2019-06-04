@@ -11,7 +11,6 @@
 >After 15.06.2019 both of these addresses will be depricated and no longer in use.
 >The new address will be http://status.sk.ee/v1/.
 
->We will update this document once the new address is functional.
 ---
 
 | **Version** | **Date** | **Author** | **Notes** |
