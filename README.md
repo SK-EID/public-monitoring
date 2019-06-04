@@ -87,19 +87,19 @@ List of business processes:
 
 | **Identifier** | **Description** |
 | --- | --- |
-| _emt_ | Mobile-ID service for Telia (EE) customers |
-| _elisa_ | Mobile-ID service for Elisa (EE) customers |
-| _tele2ee_ | Mobile-ID service for Tele2 (EE) customers |
-| _tele2lt_ | Mobile-ID service for Tele2 (LT) customers |
-| _telia_sk_lt_ | Mobile-ID service for (LT) Telia customers |
-| _tele2_sk_lt_ | Mobile-ID service for (LT) Tele2 customers |
-| _bite_sk_lt_ | Mobile-ID service for (LT) Bite customers |
-| _smart_ | Smart-ID Authentication and Signing transactions |
-| _tsa_ | Time-Stamping Authority statistics |
-| _ocsp_ | OCSP Statistics |
-| _ocsp_aia_ | AIA OCSP Statistics |
-| _ocsp_proxy_ | Proxy OCSP Statistics |
-| _ocsp_proxy_details_ | Proxy OCSP Statistics by CA|
+| [_emt_](https://status.sk.ee/v1/emt.json) | Mobile-ID service for Telia (EE) customers |
+| [_elisa_](https://status.sk.ee/v1/elisa.json) | Mobile-ID service for Elisa (EE) customers |
+| [_tele2ee_](https://status.sk.ee/v1/tele2ee.json) | Mobile-ID service for Tele2 (EE) customers |
+| [_tele2lt_](https://status.sk.ee/v1/tele2lt.json) | Mobile-ID service for Tele2 (LT) customers |
+| [_telia_sk_lt_](https://status.sk.ee/v1/telia_sk_lt.json) | Mobile-ID service for (LT) Telia customers |
+| [_tele2_sk_lt_](https://status.sk.ee/v1/tele2_sk_lt.json) | Mobile-ID service for (LT) Tele2 customers |
+| [_bite_sk_lt_](https://status.sk.ee/v1/bite_sk_lt.json) | Mobile-ID service for (LT) Bite customers |
+| [_smart_](https://status.sk.ee/v1/smart.json) | Smart-ID Authentication and Signing transactions |
+| [_tsa_](https://status.sk.ee/v1/tsa.json) | Time-Stamping Authority statistics |
+| [_ocsp_](https://status.sk.ee/v1/ocsp.json) | OCSP Statistics |
+| [_ocsp_aia_](https://status.sk.ee/v1/ocsp_aia.json) | AIA OCSP Statistics |
+| [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
+| [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
 
 
 
