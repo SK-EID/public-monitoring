@@ -8,8 +8,8 @@
 
 >This is due to changes in our web servers and hosting. 
 
->After 15.06.2019 both of these addresses will be depricated and no longer in use.
->The new address will be http://status.sk.ee/v1/.
+>After 01.06.2019 both of these addresses will be depricated and no longer in use.
+>The new permanent location will be http://status.sk.ee/v1/.
 
 ---
 
