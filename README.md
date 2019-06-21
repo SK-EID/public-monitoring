@@ -12,6 +12,8 @@
 >The new permanent location will be http://status.sk.ee/v1/.
 
 ---
+>SK's Public Monitoring and Statistics Interface is provided "AS IS", without warranty of any kind
+---
 
 | **Version** | **Date** | **Author** | **Notes** |
 | --- | --- | --- | --- |
