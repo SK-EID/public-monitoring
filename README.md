@@ -36,6 +36,7 @@
 | 1.0.18 | 03.04.2019 | Kristjan Koskor | Updated Business process subcomponents. Link status info is temporarily unavailable.|
 | 1.0.19 | 16.05.2019 | Kristjan Koskor | Added json_created to outputs where it was still missing.|
 | 1.0.20 | 16.05.2019 | Kristjan Koskor | Updated json output url path to _status.sk.ee/*_ .|
+| 1.0.21 | 21.05.2019 | Kristjan Koskor | Added MID REST|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -69,6 +70,9 @@
 * [10 PROXY OCSP DETAILS](#10-proxy-ocsp-details)
     * [10.1 Structure](#101-structure)
     * [10.2 Example-json-output](#102-example-json-output)    
+* [11 MID REST](#11-mid-rest)
+    * [10.1 Structure](#111-structure)
+    * [10.2 Example-json-output](#112-example-json-output)    
 
 # 1. Mobile-ID
 
@@ -488,6 +492,50 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
     "latest_OK": "11/07/2018 20:39:25.215708",
     "avg_response_ms": "50.9",
     "json_created": "05/16/2019 15:55:11"
+  }
+]
+```
+
+### 11 MID REST
+
+Location: https://status.sk.ee/v1/mid-rest_beta.json </br>
+Data is refreshed every 5 minutes. </br>
+The results for the last full 15 minutes are counted. (earliest=-16m@m latest=-1m@m)</br>
+
+### 11.1 Structure
+|**Key** | **Type** | **Description** | **Possible values** |
+| --- | --- | --- | --- |
+| count | int | number of occurrences | "n" | 
+| type | str | Use case of a particular operation | "Authentication" </br> "Signing" |
+| result | str | How the operation finished | "USER_CANCELLED" - User cancelled the operation </br> "DELIVERY_ERROR" - error sending SMS </br> "NOT_MID_CLIENT" - Given user has no active certificates and is not Mobile-ID client </br> "PHONE_ABSENT" - SIM not available </br> "TIMEOUT" - There was a timeout, i.e. end user did not confirm or refuse the operation within a given time </br> "OK" - everything went fine </br> "SIGNATURE_HASH_MISMATCH" - Mobile-ID configuration on user's SIM card differs from what is configured on service provider's side. (User needs to contact his/her mobile operator.) </br> "null" - may be displayed in rare cases but technically a timeout. </br> |
+| json_created | date/time | Date and time when the output was generated | "mm/dd/yyy hh:mm:ss" |
+
+### 11.2 Example json output
+```
+[
+  {
+    "count": "2",
+    "type": "Authentication",
+    "result": "NOT_MID_CLIENT",
+    "json_created": "06/12/2019 09:10:04"
+  },
+  {
+    "count": "32",
+    "type": "Authentication",
+    "result": "OK",
+    "json_created": "06/12/2019 09:10:04"
+  },
+  {
+    "count": "3",
+    "type": "Authentication",
+    "result": "TIMEOUT",
+    "json_created": "06/12/2019 09:10:04"
+  },
+  {
+    "count": "2",
+    "type": "Signature",
+    "result": "OK",
+    "json_created": "06/12/2019 09:10:04"
   }
 ]
 ```
