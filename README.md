@@ -37,6 +37,7 @@
 | 1.0.19 | 16.05.2019 | Kristjan Koskor | Added json_created to outputs where it was still missing.|
 | 1.0.20 | 16.05.2019 | Kristjan Koskor | Updated json output url path to _status.sk.ee/*_ .|
 | 1.0.21 | 21.05.2019 | Kristjan Koskor | Added MID REST|
+| 1.0.22 | 09.10.2019 | Kristjan Koskor | Updated info about tele2lt. Fixed some typos|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -106,7 +107,7 @@ List of business processes:
 | [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
 | [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
 
-
+>NOTE: tele2lt is only showing Teledema customers and has insuficient data to be properly monitored.
 
 ## 1.1. Structure
 
@@ -302,7 +303,7 @@ The statistics are updated every 5 minutes.
 
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
-| "req_in_5min_ | int | Number of request in the past 5 minutes. |
+| "req_in_5min | int | Number of request in the past 5 minutes. |
 | latest_OK | datetime | Date and time of the latest succesful response (at the time of json generation) |
 | avg_response_ms | float | Average response time over the past 5 minutes. |
 | json_created | _date/time_ | Date and time when the output was generated |
