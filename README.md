@@ -107,7 +107,7 @@ List of business processes:
 | [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
 | [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
 
->NOTE: tele2lt is only showing Teledema customers and has insuficient data to be properly monitored.
+>NOTE: tele2lt is only showing Teledema customers and has insuficient data to be properly monitored. Hence, the output will only display hardstates of either "OK" or "UNKNOWN".
 
 ## 1.1. Structure
 
