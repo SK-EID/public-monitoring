@@ -2,7 +2,7 @@
 
 ---
 > **_NOTE:_**  
-> Our pulic monitoring interface is going through some changes!
+> Our public monitoring interface is going through some changes!
 
 >As you may have noticed, http://www.sk.ee/util/public_monitoring/ is currently redirected to http://62.65.42.45/util/public_monitoring/.
 
@@ -85,7 +85,7 @@ Location of files:
 
 - JSON: [https://status.sk.ee/v1/operator_identifier.json](https://status.sk.ee/v1/operator_identifier.json)
 - XML: [sk.ee/util/public_monitoring/xml.php?id=operator_identifier](http://www.sk.ee/util/public_monitoring/xml.php?id=operator_identifier)
->NOTE: XML output will be depricated on 15.06.2019 and will no longer be available.
+>NOTE: XML output will be deprecated on 15.06.2019 and will no longer be available.
 
 Where "operator_identifier" is the _identifier_ of the business process.
 
