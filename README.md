@@ -36,8 +36,9 @@
 | 1.0.18 | 03.04.2019 | Kristjan Koskor | Updated Business process subcomponents. Link status info is temporarily unavailable.|
 | 1.0.19 | 16.05.2019 | Kristjan Koskor | Added json_created to outputs where it was still missing.|
 | 1.0.20 | 16.05.2019 | Kristjan Koskor | Updated json output url path to _status.sk.ee/*_ .|
-| 1.0.21 | 21.05.2019 | Kristjan Koskor | Added MID REST|
-| 1.0.22 | 09.10.2019 | Kristjan Koskor | Updated info about tele2lt. Fixed some typos|
+| 1.0.21 | 21.05.2019 | Kristjan Koskor | Add MID REST|
+| 1.0.22 | 09.10.2019 | Kristjan Koskor | Update info about tele2lt. Fixed some typos|
+| 1.0.23 | 28.01.2020 | Kristjan Koskor | Add 'activeMID_LT' data object|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -401,6 +402,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | Authentications | Number of validity confirmations provided for authentication certificates issued by SK through ocsp.sk.ee service for the period from 2002 until the day before data was generated. This number must not be interpreted as authentications. |
 | Yesterday | Number of validity confirmations provided for certificates issued by SK through ocsp.sk.ee service during a day before data was generated. |
 | activeMID | Number of active Mobile-ID unique users in Estonia |
+| activeMID_LT | Number of active Mobile-ID unique users in Lithuania |
 | last_month_SID | Number of Smart-ID transactions during previous calendar month | 
 | activeSID_EE | Number of active Smart-ID unique users in Estonia | 
 | activeSID | Number of active Smart-ID unique users in total (over all countries) | 
