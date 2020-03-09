@@ -78,7 +78,7 @@ This interface displays information about Mobile-ID transactions that use DigiDo
 Interface generates ".json" files.
 Monitoring data is generated every 5 minutes.
 
-Location of files:
+Location of file:
 
 - JSON: [https://status.sk.ee/v1/sk-dds-mid.json](https://status.sk.ee/v1/sk-dds-mid.json)
 
@@ -161,6 +161,8 @@ insuficient data to evaluate status
 
 # 3. Smart-ID
 
+- JSON: [https://status.sk.ee/v1/smart.json](https://status.sk.ee/v1/smart.json)
+
 ## 3.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -175,32 +177,11 @@ insuficient data to evaluate status
 | json_created | _date/time_ | Date and time when the output was generated |
 
 
-## 3.2. Example xml output
-
-```
-	<public_monitoring>
-      <item0>
-            <Use>Authentication</Use>
-          <Total>1887</Total>
-          <Success>1837</Success>
-          <Failed>50</Failed>
-          <Failrate>2.649709</Failrate>
-          <Status>OK</Status>
-      </item0>
-      <item1>
-          <Use>Signing</Use>
-          <Total>1543</Total>
-          <Success>1499</Success>
-          <Failed>44</Failed>
-          <Failrate>2.851588</Failrate>
-         <Status>OK</Status>
-      </item1>
-	</public_monitoring>
-```
-
 # 4. TSA 
 SK’s Time-Stamping Authority public monitoring interface is mainly useful for statistical purposes. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average response time of the TSA.
 The statistics are updated every 5 minutes.
+
+- JSON: [https://status.sk.ee/v1/tsa.json](https://status.sk.ee/v1/tsa.json)
 
 ## 4.1 Structure
 
@@ -312,6 +293,9 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | reportExecuted | Date and time when data was generated |
 
 ## 7. OCSP
+
+- JSON: [https://status.sk.ee/v1/tsa.json](https://status.sk.ee/v1/ocsp.json)
+
 ### 7.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -333,6 +317,9 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ```
 
 ### 8 AIA OCSP
+
+- JSON: [https://status.sk.ee/v1/ocsp_aia.json](https://status.sk.ee/v1/ocsp_aia.json)
+
 ### 8.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -354,6 +341,9 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ```
 
 ### 9 PROXY OCSP 
+
+- JSON: [https://status.sk.ee/v1/ocsp_proxy.json](https://status.sk.ee/v1/ocsp_proxy.json)
+
 ### 9.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -375,6 +365,9 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ```
 
 ### 10 PROXY OCSP Details
+
+- JSON: [https://status.sk.ee/v1/ocsp_proxy_detail.json](https://status.sk.ee/v1/ocsp_proxy_detail.json)
+
 This interface provides statistics on every proxied CA.
 Statistics wil be displayed for every CA that has responded in the past 5 minutes in a separate block.
 If a particular CA has not responded in the past 5 minutes - its block will be omitted.
