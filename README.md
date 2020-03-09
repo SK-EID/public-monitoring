@@ -41,11 +41,8 @@
 * [1. Mobile-ID](#1-mobile-id)
     * [1.1. Structure](#11-structure)
     * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
-    * [1.3. Time windows of monitored data](#13-time-windows-of-monitored-data)
-    * [1.4. Hard and soft state](#14-hard-and-soft-state)
-* [2. Examples](#2-examples)
-    * [2.1. Example json output](#21-example-json-output)
-    * [2.2. Example XML output](#22-example-xml-output)
+    * [1.4. Examples](#13-examples)
+    * [2.1. Example json output](#131-example-json-output)
 * [3. Smart-ID](#3-smart-id)
     * [3.1 Structure](#31-structure)
     * [3.2 Example-xml-output](#32-example-xml-output)
@@ -144,8 +141,8 @@ more than 10% of authentication or signing requests have failed in the last full
 less than 100 authentication or signing requests in the last full 5 minutes
 insuficient data to evaluate status
 
-# 2. Examples
-## 2.1. Example json output
+# 1.3. Examples
+## 1.3.1. Example json output
 
 ```
   [
