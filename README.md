@@ -35,7 +35,7 @@
 | 1.0.21 | 21.05.2019 | Kristjan Koskor | Add MID REST|
 | 1.0.22 | 09.10.2019 | Kristjan Koskor | Update info about tele2lt. Fixed some typos|
 | 1.0.23 | 28.01.2020 | Kristjan Koskor | Add 'activeMID_LT' data object|
-| 1.0.24 | 28.01.2020 | Kristjan Koskor | Add sk-dds-mid.json file|
+| 1.0.24 | 28.01.2020 | Kristjan Koskor | Add sk-dds-mid.json file. Remove depricated Mobile-ID monitoring|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -101,19 +101,24 @@ List of interfaces:
 ## 1.1. Structure
 
  **Operator**
+ 
  name of Mobile network operator 
  > operators with *-SK-* in their name are using SK's OTA service. 
  
  **Status**
+ 
  OK, WARNING, CRITICAL, UNKNOWN
  
  **Failrate**
+ 
  percentage of failed Mobile-ID authentication or signing requests in the last 5 full minutes
  
  **Total**
+ 
  total number of authentication or signing requests in the last 5 full minutes
  
  **Failed**
+ 
 number of failed authentication or signing requests in the last 5 full minutes
 
 **json_created**
@@ -123,15 +128,19 @@ JSON data generation time
 ## 1.2. Description of monitoring logic and failure rates
 
 **OK**
+
 less than 10% of authentication or signing requests have failed in the last full 5 minutes
 
 **WARNING**
+
 more than 10% of authentication or signing requests have failed in the last full 5 minutes
 
 **CRITICAL**
+
 100% of authentication or signing requests have failed in the last full 5 minutes
 
 **UNKNOWN** 
+
 less than 100 authentication or signing requests in the last full 5 minutes
 insuficient data to evaluate status
 
@@ -148,6 +157,8 @@ insuficient data to evaluate status
     "Operator": "BITE-SK-LT", 
     "Total": "163"
   }, 
+  ...
+]
 ```
 
 # 3. Smart-ID
