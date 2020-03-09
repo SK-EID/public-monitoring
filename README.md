@@ -4,12 +4,8 @@
 > **_NOTE:_**  
 > Our public monitoring interface is going through some changes!
 
->As you may have noticed, http://www.sk.ee/util/public_monitoring/ is currently redirected to http://62.65.42.45/util/public_monitoring/.
-
->This is due to changes in our web servers and hosting. 
-
->After 01.06.2019 both of these addresses will be deprecated and no longer in use.
->The new permanent location will be http://status.sk.ee/v1/.
+> The older style Mobile-ID monitoring interface is being depricated in favor of a newer more compact ouput.
+> See https://status.sk.ee/v1/sk-dds-mid.json 
 
 ---
 >SK's Public Monitoring and Statistics Interface is provided "AS IS", without warranty of any kind
@@ -39,6 +35,7 @@
 | 1.0.21 | 21.05.2019 | Kristjan Koskor | Add MID REST|
 | 1.0.22 | 09.10.2019 | Kristjan Koskor | Update info about tele2lt. Fixed some typos|
 | 1.0.23 | 28.01.2020 | Kristjan Koskor | Add 'activeMID_LT' data object|
+| 1.0.24 | 28.01.2020 | Kristjan Koskor | Add sk-dds-mid.json file|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -78,29 +75,20 @@
 
 # 1. Mobile-ID
 
-SK public monitoring interface provides JSON and XML based information about availability of Mobile-ID service to mobile operator clients.
+SK public monitoring interface provides JSON based information about availability of Mobile-ID service to mobile operator clients.
 
-Interface generates ".json" files (from Nagios Business Processes interface) and xml.php - provides same output in XML format (generated from .json files). Monitoring data is generated every minute.
+Interface generates ".json" files.
+Monitoring data is generated every 5 minutes.
 
 Location of files:
 
-- JSON: [https://status.sk.ee/v1/operator_identifier.json](https://status.sk.ee/v1/operator_identifier.json)
-- XML: [sk.ee/util/public_monitoring/xml.php?id=operator_identifier](http://www.sk.ee/util/public_monitoring/xml.php?id=operator_identifier)
->NOTE: XML output will be deprecated on 15.06.2019 and will no longer be available.
+- JSON: [https://status.sk.ee/v1/sk-dds-mid.json](https://status.sk.ee/v1/sk-dds-mid.json)
 
-Where "operator_identifier" is the _identifier_ of the business process.
-
-List of business processes:
+List of interfaces:
 
 | **Identifier** | **Description** |
 | --- | --- |
-| [_emt_](https://status.sk.ee/v1/emt.json) | Mobile-ID service for Telia (EE) customers |
-| [_elisa_](https://status.sk.ee/v1/elisa.json) | Mobile-ID service for Elisa (EE) customers |
-| [_tele2ee_](https://status.sk.ee/v1/tele2ee.json) | Mobile-ID service for Tele2 (EE) customers |
-| [_tele2lt_](https://status.sk.ee/v1/tele2lt.json) | Mobile-ID service for Tele2 (LT) customers |
-| [_telia_sk_lt_](https://status.sk.ee/v1/telia_sk_lt.json) | Mobile-ID service for (LT) Telia customers |
-| [_tele2_sk_lt_](https://status.sk.ee/v1/tele2_sk_lt.json) | Mobile-ID service for (LT) Tele2 customers |
-| [_bite_sk_lt_](https://status.sk.ee/v1/bite_sk_lt.json) | Mobile-ID service for (LT) Bite customers |
+| [_mobile-id_](https://status.sk.ee/v1/sk-dds-mid.json) | Combined Mobile-ID service monitoring for all Mobile network operators |
 | [_smart_](https://status.sk.ee/v1/smart.json) | Smart-ID Authentication and Signing transactions |
 | [_tsa_](https://status.sk.ee/v1/tsa.json) | Time-Stamping Authority statistics |
 | [_ocsp_](https://status.sk.ee/v1/ocsp.json) | OCSP Statistics |
@@ -108,153 +96,58 @@ List of business processes:
 | [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
 | [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
 
->NOTE: tele2lt is only showing Teledema customers and has insuficient data to be properly monitored. Hence, the output will only display hardstates of either "OK" or "UNKNOWN".
+>NOTE: Teledema customers has insuficient data to be properly monitored. Hence, the output will only display hardstates of either "OK" or "UNKNOWN".
 
 ## 1.1. Structure
 
-**business_process**
-
-Business process block – contains information about sub list
-
-**hardstate**
-
-Status of business process (if one sub component is not operational then entire business process is failing)
-
-**components**
-
-Business process sub components
-
-| **hardstate** | Status of sub-process. (etc. OCSP service) Changes when _n_ number of checks failed.<br>**States:**<br>OK – component is operational<br>WARNING – component is operational; some of the requests are failing.<br>CRITICAL – component is not working correctly<br>UNKNOWN – Some of requests are failing, but the amount of requests is too low to decide is the component operational or not. |
-| --- | --- |
-| **plugin\_output** | Nagios plugin output. <br>Usually contains detailed information about service status: <br>"SERVICE\_NAME Failure rate: x%, Failed yy of zz""OK" – Unable to read failure rate information from monitoring plugin. |
-| **service** | Name of the service: <br>**check\_dds2\_mssp\_\*** - MSSP (Mobile Signature Service Provider) checks <br>**check\_dds\_certstore\_\*** - External certificate store checks <br>**check\_ocsp\_\*** – OCSP checks <br>**check\_\*\_smsc** – Status of SMSC<br>queue = number of SMS-s in queue<br>~~link = link status (1 – link up; 0 – link down)~~-(link status info is temporarily unavailable as of 03.04.2019) <br>plugin output example: (tele2 OK: queue=0, link=1") |
-
-**bp_id**
-
-ID of Business process (short identifier)
-
-**display_name**
-
-Name of Business process
+ **Operator**
+ name of Mobile network operator 
+ > operators with *-SK-* in their name are using SK's OTA service. 
+ 
+ **Status**
+ OK, WARNING, CRITICAL, UNKNOWN
+ 
+ **Failrate**
+ percentage of failed Mobile-ID authentication or signing requests in the last 5 full minutes
+ 
+ **Total**
+ total number of authentication or signing requests in the last 5 full minutes
+ 
+ **Failed**
+number of failed authentication or signing requests in the last 5 full minutes
 
 **json_created**
 
-JSON report generation time
+JSON data generation time
 
-## 1.2. Description of monitoring logic and failure rates of different components
+## 1.2. Description of monitoring logic and failure rates
 
+**OK**
+less than 10% of authentication or signing requests have failed in the last full 5 minutes
 
-- External certificate store monitoring (service syntax: check_dds_certstore_)
-- Mobile operator monitoring (service syntax: check_dds2_mssp_)
-- External OCSP monitoring (service syntax: check_ocsp_)
+**WARNING**
+more than 10% of authentication or signing requests have failed in the last full 5 minutes
 
-|   | **WARNING** | **CRITICAL** | **UNKNOWN** |
-| --- | --- | --- | --- |
-| **Last 5 min** | - | all queries failed | - |
-| **Last 30 min** | at least 100 queries and 25% queries failed | at least 100 queries and 40% queries failed | less than 100 queries and at least 1 failed |
-- 1 check to change the state, check interval 4 min
+**CRITICAL**
+100% of authentication or signing requests have failed in the last full 5 minutes
 
-
-
-- **SK OCSP monitoring (service: check_ocsp_ocsp.sk.ee)**
-
-|   | **WARNING** | **CRITICAL** | **UNKNOWN** |
-| --- | --- | --- | --- |
-|   | - | OCSP query failed | - |
-
-- 2 checks to change state, check interval 3 min
-
-## 1.3. Time windows of monitored data 
-
-
-- Mobile operator monitoring displays the results for set amount of time. (see table below) 
-- The smaller the window the more sensitive the failure rate will be.
-- In some cases the window may be longer to compensate for smaller transaction volume.
-
-- Mobile operator monitoring (service syntax: check_dds2_mssp_)
-
-
-| **Identifier** | **Window of time** |
-| --- | --- |
-| _emt_ | 5 min. |
-| _elisa_ | 5 min. |
-| _tele2ee_ | 5 min. |
-| _omnitel_rc_ | 5 min. |
-| _tele2lt_ | 5 min. |
-| _bite_ | 5 min. |
-| _telia_sk_lt_ | 5 min. |
-| _tele2_sk_lt_ | 5 min. |
-| _bite_sk_lt_ | 5 min. |
-
-
-## 1.4. Hard and soft state
-
-In order to prevent false alarms from transient problems, Nagios allows to define how many times a service or host should be (re)checked before considered to have a "real" problem.
-
-plugin_output – is changing when soft state changed.
-
-Actual alert is issued when "hardstate" is changing to alarm state (there has to be x amount of checks to confirm that change really happened).
-
-Currently multiple check logic is used only in check_ocsp_ocsp.sk.ee service. Therefore in this component hardstate and plugin output may show different statuses
-
-More information: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/statetypes.html
+**UNKNOWN** 
+less than 100 authentication or signing requests in the last full 5 minutes
+insuficient data to evaluate status
 
 # 2. Examples
 ## 2.1. Example json output
 
 ```
-    {
-    "business_process" : {
-      "hardstate" : "OK",
-      "components" : [
-         {
-            "hardstate" : "OK",
-            "plugin_output" : "OK Failure rate: 0%, Failed 0 of 40",
-            "service" : "check_dds2_mssp_bite_rc"
-         },
-         {
-            "hardstate" : "OK",
-            "plugin_output" : "RC_WPKITSP_STORE Failure rate: 0%, Failed 0 of 40",
-            "service" : "check_dds_certstore_rc_wpkitsp_store"
-         },
-         {
-            "hardstate" : "OK",
-            "plugin_output" : "OK",
-            "service" : "check_ocsp_ocsp.rcsc.lt"
-         }
-      ],
-      "bp_id" : "bite",
-      "display_name" : "BITE business process"
-    },
-    "json_created" : "2017-05-20 13:37:01"
-    }
-```
-## 2.2. Example XML output
-
-```
-    <public_monitoring>
-        <business_process>
-                <hardstate>OK</hardstate>
-                <components>
-                        <hardstate>OK</hardstate>
-                        <plugin_output>OK Failure rate: 0%, Failed 0 of 40</plugin_output>
-                        <service>check_dds2_mssp_bite_rc</service>
-                </components>
-                <components>
-                        <hardstate>OK</hardstate>
-                        <plugin_output>RC_WPKITSP_STORE Failure rate: 0%, Failed 0 of 40</plugin_output>
-                        <service>check_dds_certstore_rc_wpkitsp_store</service>
-                </components>
-                <components>
-                        <hardstate>OK</hardstate>
-                        <plugin_output>OK</plugin_output>
-                        <service>check_ocsp_ocsp.rcsc.lt</service>
-                </components>
-                <bp_id>bite</bp_id>
-                <display_name>BITE business process</display_name>
-        </business_process>
-        <json_created>2017-05-20 13:37:01</json_created>
-    </public_monitoring>
+  [
+  {
+    "Status": "OK", 
+    "Failrate": "6.134969325153374", 
+    "Failed": "10", 
+    "json_created": "03/09/2020 18:30:23", 
+    "Operator": "BITE-SK-LT", 
+    "Total": "163"
+  }, 
 ```
 
 # 3. Smart-ID
