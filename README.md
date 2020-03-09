@@ -73,6 +73,7 @@
 # 1. Mobile-ID
 
 SK public monitoring interface provides JSON based information about availability of Mobile-ID service to mobile operator clients.
+This interface displays information about Mobile-ID transactions that use DigiDoc Service. If you're interested in MID-REST interface numbers, pleas see [11 MID REST](#11-mid-rest)
 
 Interface generates ".json" files.
 Monitoring data is generated every 5 minutes.
