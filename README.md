@@ -70,18 +70,6 @@
     * [10.1 Structure](#111-structure)
     * [10.2 Example-json-output](#112-example-json-output)    
 
-# 1. Mobile-ID
-
-SK public monitoring interface provides JSON based information about availability of Mobile-ID service to mobile operator clients.
-This interface displays information about Mobile-ID transactions that use DigiDoc Service. If you're interested in MID-REST interface numbers, pleas see [11 MID REST](#11-mid-rest)
-
-Interface generates ".json" files.
-Monitoring data is generated every 5 minutes.
-
-Location of file:
-
-- JSON: [https://status.sk.ee/v1/sk-dds-mid.json](https://status.sk.ee/v1/sk-dds-mid.json)
-
 List of interfaces:
 
 | **Identifier** | **Description** |
@@ -93,6 +81,19 @@ List of interfaces:
 | [_ocsp_aia_](https://status.sk.ee/v1/ocsp_aia.json) | AIA OCSP Statistics |
 | [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
 | [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
+
+
+# 1. Mobile-ID
+
+SK public monitoring interface provides JSON based information about availability of Mobile-ID service to mobile operator clients.
+This interface displays information about Mobile-ID transactions that use DigiDoc Service. If you're interested in MID-REST interface numbers, pleas see [11 MID REST](#11-mid-rest)
+
+Interface generates ".json" files.
+Monitoring data is generated every 5 minutes.
+
+Location of file:
+
+- JSON: [https://status.sk.ee/v1/sk-dds-mid.json](https://status.sk.ee/v1/sk-dds-mid.json)
 
 >NOTE: Teledema customers has insuficient data to be properly monitored. Hence, the output will only display hardstates of either "OK" or "UNKNOWN".
 
