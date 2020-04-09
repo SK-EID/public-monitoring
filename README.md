@@ -7,6 +7,9 @@
 > The older style Mobile-ID monitoring interface is being depricated in favor of a newer more compact ouput.
 > See https://status.sk.ee/v1/sk-dds-mid.json 
 
+> Operator centric outputs will cease to function some time after 26.04.2020. 
+> Please reconfigure any systems that poll outputs like https://status.sk.ee/v1/<operator_name>.json to parse the info from  https://status.sk.ee/v1/sk-dds-mid.json 
+
 ---
 >SK's Public Monitoring and Statistics Interface is provided "AS IS", without warranty of any kind
 ---
