@@ -39,6 +39,7 @@
 | 1.0.22 | 09.10.2019 | Kristjan Koskor | Update info about tele2lt. Fixed some typos|
 | 1.0.23 | 28.01.2020 | Kristjan Koskor | Add 'activeMID_LT' data object|
 | 1.0.24 | 28.01.2020 | Kristjan Koskor | Add sk-dds-mid.json file. Remove depricated Mobile-ID monitoring|
+| 1.0.24 | 30.04.2020 | Kristjan Koskor | Changed Smart-ID monitoring specification|
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -48,10 +49,9 @@
     * [2.1. Example json output](#131-example-json-output)
 * [3. Smart-ID](#3-smart-id)
     * [3.1 Structure](#31-structure)
-    * [3.2 Example-xml-output](#32-example-xml-output)
+    * [3.2 Example-json-output](#32-example-json-output)
 * [4. TSA](#4-tsa)
     * [4.1 Structure](#41-structure)
-    * [4.2 Example-xml-output](#42-example-json-output)
 * [5. Trust Services](#5-trust-services)
     * [5.1 Structure](#51-structure)
     * [5.2 Example-json-output](#52-example-json-output)
@@ -165,20 +165,48 @@ insuficient data to evaluate status
 
 # 3. Smart-ID
 
+>Smart-ID will switch to the described format on Monday, 04.05.2020
+>
+>We'll be changing the methodology behind Smart-ID public monitoring. 
+>We now account for requests sooner in the service pipeline and also consider more failure states.
+>
+>Transactions are considered as succesful if completed as expected OR where the user refused the transaction on their app OR when a user entered the wrong verification code.
+>This will also highlight potential issues with the service in more contrast.
+>Due to this, you can expect a change in the failure rate numbers of the ouput. But Don't worry, the service itself has not been changed and is operating just as before.
+
 - JSON: [https://status.sk.ee/v1/smart.json](https://status.sk.ee/v1/smart.json)
 
 ## 3.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
-| _public_monitoring_ | tag | Root element |
-| _itemN_ | tag | child element where N is a row number |
-| Use | _str_ | Use case / type of transaction("Authentication" or "Signing") |
-| Total | _int_ | Total number of transactions for a particular use case |
-| Success | _int_ | Number of successfully completed transactions of particular use case |
-| Failed | _int_ | Number of failed transactions of a particular use case <br />* **NB!**  This count also includes end user error cases<br /> such as when the user cancels a transaction; <br />when the user fails to respond in time; <br />when the users PIN is blocked etc. *
-|Failrate |_float_|Percentage of failed transactions of the total number of transactions of a particular use case|
-|Status|_str_|**State of service:** <br /> "OK" = failrate is lower than 5% <br />"WARN" = failrate is greater than 5%<br />"CRITICAL" = failrate is greater than 75%|
+| _Status_ | str | **State of service:** <br /> "OK" = failrate is lower than 15% <br />"WARN" = failrate is greater than 15%<br />"CRITICAL" = failrate is greater than 75% <br />"UNKNOWN" = failrate is 0 or unreported |
+| Use | _str_ | Use case ("Authentication" or "Signing") |
+| Started | _int_ | Number of started request for a particular use case |
+| Failrate |_float_ | Percentage of failed transactions of the total number of transactions of particular use case |
+| Finished | _int_ | Number of successfully finished transactions of a particular use case <br />  including user timeouts  and Wrong PIN entered. <br /> All other results are considered as failed requests.|
 | json_created | _date/time_ | Date and time when the output was generated |
+
+## 3.2. Example json output
+```
+  [
+  {
+    "Status": "OK",
+    "Use": "Authentication",
+    "Started": "10125",
+    "Failrate": "6.7",
+    "Finished": "9444",
+    "json_created": "04/30/2020 14:19:13"
+  },
+  {
+    "Status": "OK",
+    "Use": "Signing",
+    "Started": "3631",
+    "Failrate": "1.9",
+    "Finished": "3563",
+    "json_created": "04/30/2020 14:19:13"
+  }
+]
+```
 
 
 # 4. TSA 
