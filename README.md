@@ -183,7 +183,7 @@ insuficient data to evaluate status
 | Use | _str_ | Use case ("Authentication" or "Signing") |
 | Started | _int_ | Number of started request for a particular use case |
 | Failrate |_float_ | Percentage of failed transactions of the total number of transactions of particular use case |
-| Finished | _int_ | Number of successfully finished transactions of a particular use case <br />  including user timeouts  and Wrong PIN entered. <br /> All other results are considered as failed requests.|
+| Finished | _int_ | Number of successfully finished transactions of a particular use case <br />  including user timeouts, PIN validation issues or clone detection. <br /> All other results are considered as failed requests.|
 | json_created | _date/time_ | Date and time when the output was generated |
 
 ## 3.2. Example json output
