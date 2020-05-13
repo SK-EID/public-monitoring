@@ -179,7 +179,7 @@ insuficient data to evaluate status
 ## 3.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
-| _Status_ | str | **State of service:** <br /> "OK" = failrate is lower than 15% <br />"WARN" = failrate is greater than 15%<br />"CRITICAL" = failrate is greater than 75% <br />"UNKNOWN" = failrate is 0 or unreported |
+| _Status_ | str | **State of service:** <br /> "OK" = failrate is lower than 20% <br />"WARN" = failrate is greater than 15%<br />"CRITICAL" = failrate is greater than 75% <br /> |
 | Use | _str_ | Use case ("Authentication" or "Signing") |
 | Started | _int_ | Number of started request for a particular use case |
 | Failrate |_float_ | Percentage of failed transactions of the total number of transactions of particular use case |
