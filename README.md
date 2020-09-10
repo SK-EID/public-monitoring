@@ -436,14 +436,13 @@ The results for full 15 minutes, 2 minutes from now(), are counted. (earliest=-1
 ### 11.1 Structure
 |**Key** | **Type** | **Description** | **Possible values** |
 | --- | --- | --- | --- |
-| Status | str | General status of the service | "OK" = Failrate is lower than 10% \n "WARNING" = Failrate is greater than 11% \n "CRITICAL" = Failrate is greater than 50% \n "UNKNOWN = There are less than 100 Total requests" | 
+| Status | str | General status of the service | "OK" = Failrate is lower than 10% <br /> "WARNING" = Failrate is greater than 11% <br /> "CRITICAL" = Failrate is greater than 50% <br /> "UNKNOWN = There are less than 100 Total requests" | 
 | Failrate | int | Failure rate percentage of total requests | 0-100 |
 | Failed | int | Number of failed requests | "USER_CANCELLED" - User cancelled the operation </br> "DELIVERY_ERROR" - error sending SMS </br> "NOT_MID_CLIENT" - Given user has no active certificates and is not Mobile-ID client </br> "PHONE_ABSENT" - SIM not available </br> "TIMEOUT" - There was a timeout, i.e. end user did not confirm or refuse the operation within a given time </br> "OK" - everything went fine </br> "SIGNATURE_HASH_MISMATCH" - Mobile-ID configuration on user's SIM card differs from what is configured on service provider's side. (User needs to contact his/her mobile operator.) </br> "null" - may be displayed in rare cases but technically counts as a timeout. </br> |
 | json_created | date/time | Date and time when the output was generated | "mm/dd/yyy hh:mm:ss" |
-| Operator | str | Name of Mobile Network Operator | "BITE-SK-LT" \n "ELISA-SK-EE" \n "EMT-SK-EE" \n "TELE2-SK-EE" \n "TELEDEMA-LT" \n "TELIA-SK-LT" |
+| Operator | str | Name of Mobile Network Operator | "BITE-SK-LT" <br /> "ELISA-SK-EE" <br /> "EMT-SK-EE" <br /> "TELE2-SK-EE" <br /> "TELEDEMA-LT" <br /> "TELIA-SK-LT" |
 | Total | int | Total number of Mobile-ID requests for a given Operator | "<n>" |
 
-Total <= 100, "UNKNOWN",Failrate >= 100, "CRITICAL", Failrate >= 11, "WARNING", Failrate <= 10, "OK"
 
 ### 11.2 Example json output
 ```
