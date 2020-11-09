@@ -1,14 +1,11 @@
 **SK ID Solutions AS Public Monitoring and Statistics Interface Specification**
 
 ---
-> **_NOTE:_**  
-> Our public monitoring interface is going through some changes!
+> **_NOTICE:_**  
 
-> The older style Mobile-ID monitoring interface is being depricated in favor of a newer more compact ouput.
-> See https://status.sk.ee/v1/sk-dds-mid.json 
-
-> Operator centric outputs will cease to function some time after 26.04.2020. 
-> Please reconfigure any systems that poll outputs like https://status.sk.ee/v1/<operator_name>.json to parse the info from  https://status.sk.ee/v1/sk-dds-mid.json 
+> Since DigiDocService is discontinued as of 01.10.2020 and most e-service providers have migrated to using the MID-REST API
+> the older monitoring public monitoring output of https://status.sk.ee/v1/sk-dds-mid.json no longer reflects relevant information. 
+> Please refer to https://status.sk.ee/v1/sk-dds-mid.json for up-to-date stats.
 
 ---
 >SK's Public Monitoring and Statistics Interface is provided "AS IS", without warranty of any kind
