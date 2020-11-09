@@ -5,7 +5,7 @@
 
 > Since DigiDocService is discontinued as of 01.10.2020 and most e-service providers have migrated to using the MID-REST API
 > the older monitoring public monitoring output of https://status.sk.ee/v1/sk-dds-mid.json no longer reflects relevant information. 
-> Please refer to https://status.sk.ee/v1/sk-dds-mid.json for up-to-date stats.
+> Please refer to https://status.sk.ee/v1/mid-rest_live.json for up-to-date stats.
 
 ---
 >SK's Public Monitoring and Statistics Interface is provided "AS IS", without warranty of any kind
