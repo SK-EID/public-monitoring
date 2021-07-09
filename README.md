@@ -38,6 +38,7 @@
 | 1.0.24 | 28.01.2020 | Kristjan Koskor | Add sk-dds-mid.json file. Remove depricated Mobile-ID monitoring|
 | 1.0.24 | 30.04.2020 | Kristjan Koskor | Changed Smart-ID monitoring specification|
 | 1.0.25 | 10.09.2020 | Kristjan Koskor | Changed MID-REST monitoring is out of beta specification |
+| 1.0.26 | 09.07.2021 | Kristjan Koskor | Changed 'cards.json' URL |
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -301,7 +302,7 @@ Location of test json file: https://status.sk.ee/v1/trust_srv_test.json
 
 # 6. General statistics interface
 Where ever needed, you can use these numbers to illustrate your presentations, analyses, website. 
-Data is available at  https://minutoimingud.sk.ee/cards.json
+Data is available at  https://status.sk.ee/v1/cards.json
 Data is generated once a day and includes the data until 23:59 for the previous day.
 
 ## 6.1 Descriptions of data objects
