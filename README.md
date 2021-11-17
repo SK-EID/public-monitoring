@@ -212,7 +212,7 @@ insuficient data to evaluate status
 ]
 ```
 
-# 4. TSA Stats
+# 4. Time Stamping Authority Stats
 SK’s Time-Stamping Authority public monitoring interface is mainly useful for statistical purposes. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average response time of the TSA.
 The statistics are updated every 5 minutes.
 
