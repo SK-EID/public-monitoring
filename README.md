@@ -45,37 +45,36 @@
 * [1. Mobile-ID](#1-mobile-id)
     * [1.1. Structure](#11-structure)
     * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
-    * [1.4. Examples](#13-examples)
-    * [2.1. Example json output](#131-example-json-output)
-* [3. Smart-ID](#3-smart-id)
+    * [1.3. Example json output](#13-example-json-output)
+* [2. Smart-ID](#2-smart-id)
+    * [2.1 Structure](#21-structure)
+    * [2.2 Example-json-output](#22-example-json-output)
+* [3. Time Stamping Authority Stats](#3-time-stamping-authority-stats)
     * [3.1 Structure](#31-structure)
     * [3.2 Example-json-output](#32-example-json-output)
-* [4. TSA Stats](#4-tsa-stats)
+* [4. Time Stamping Authority Status](#4-tsa-status)
     * [4.1 Structure](#41-structure)
     * [4.2 Example-json-output](#42-example-json-output)
-* [5. Time Stamping Authority Status](#5-tsa-status)
-    * [5.1 Structure](#41-structure)
-    * [5.2 Example-json-output](#42-example-json-output)
-* [6. Trust Services](#6-trust-services)
-    * [6.1 Structure](#61-structure)
-    * [6.2 Example-json-output](#62-example-json-output)
-* [7. General statistics interface](#7-general-statistics-interface)
-    * [7.1 Descriptions of data objects](#71-descriptions-of-data-objects)
-* [8. OCSP](#8-ocsp)
+* [5. Trust Services](#5-trust-services)
+    * [5.1 Structure](#51-structure)
+    * [5.2 Example-json-output](#52-example-json-output)
+* [6. General statistics interface](#6-general-statistics-interface)
+    * [6.1 Descriptions of data objects](#61-descriptions-of-data-objects)
+* [7. OCSP](#7-ocsp)
+    * [7.1 Structure](#71-structure)
+    * [7.2 Example-json-output](#72-example-json-output)
+* [8. AIA OCSP](#8-aia-ocsp)
     * [8.1 Structure](#81-structure)
     * [8.2 Example-json-output](#82-example-json-output)
-* [9. AIA OCSP](#9-aia-ocsp)
+* [9. PROXY OCSP](#9-proxy-ocsp)
     * [9.1 Structure](#91-structure)
     * [9.2 Example-json-output](#92-example-json-output)
-* [10. PROXY OCSP](#10-proxy-ocsp)
+* [10. PROXY OCSP DETAILS](#10-proxy-ocsp-details)
     * [10.1 Structure](#101-structure)
-    * [10.2 Example-json-output](#102-example-json-output)
-* [11. PROXY OCSP DETAILS](#10-proxy-ocsp-details)
+    * [10.2 Example-json-output](#102-example-json-output)    
+* [11. MID REST](#11-mid-rest)
     * [11.1 Structure](#111-structure)
     * [11.2 Example-json-output](#112-example-json-output)    
-* [12. MID REST](#11-mid-rest)
-    * [12.1 Structure](#121-structure)
-    * [12.2 Example-json-output](#122-example-json-output)    
 
 List of interfaces:
 
@@ -150,8 +149,7 @@ more than 10% of authentication or signing requests have failed in the last full
 less than 100 authentication or signing requests in the last full 5 minutes
 insuficient data to evaluate status
 
-# 1.3. Examples
-## 1.3.1. Example json output
+## 1.3. Example json output
 
 ```
   [
@@ -167,7 +165,7 @@ insuficient data to evaluate status
 ]
 ```
 
-# 3. Smart-ID
+# 2. Smart-ID
 
 >Smart-ID will switch to the described format on Monday, 04.05.2020
 >
@@ -180,7 +178,7 @@ insuficient data to evaluate status
 
 - JSON: [https://status.sk.ee/v1/smart.json](https://status.sk.ee/v1/smart.json)
 
-## 3.1 Structure
+## 2.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | _Status_ | str | **State of service:** <br /> "OK" = failrate is lower than 20% <br />"WARN" = failrate is greater than 15%<br />"CRITICAL" = failrate is greater than 75% <br /> |
@@ -190,7 +188,7 @@ insuficient data to evaluate status
 | Finished | _int_ | Number of successfully finished transactions of a particular use case <br />  including user timeouts, PIN validation issues or clone detection. <br /> All other results are considered as failed requests.|
 | json_created | _date/time_ | Date and time when the output was generated |
 
-## 3.2. Example json output
+## 2.2. Example json output
 ```
   [
   {
@@ -212,13 +210,13 @@ insuficient data to evaluate status
 ]
 ```
 
-# 4. Time Stamping Authority Stats
+# 3. Time Stamping Authority Stats
 SK’s Time-Stamping Authority public monitoring interface is mainly useful for statistical purposes. It displays the number of requests to the TSA in the past 5 minutes, the time of the latest successful response and the average response time of the TSA.
 The statistics are updated every 5 minutes.
 
 - JSON: [https://status.sk.ee/v1/tsa.json](https://status.sk.ee/v1/tsa.json)
 
-## 4.1 Structure
+## 3.1 Structure
 
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -227,7 +225,7 @@ The statistics are updated every 5 minutes.
 | avg_response_ms | float | Average response time over the past 5 minutes. |
 | json_created | _date/time_ | Date and time when the output was generated |
 
-## 4.2. Example json output
+## 3.2. Example json output
 ```
 [
   {
@@ -239,13 +237,13 @@ The statistics are updated every 5 minutes.
 ]
 ```
 
-# 5. Time Stamping Authority Status
+# 4. Time Stamping Authority Status
 SK’s Time-Stamping Authority public monitoring interface is useful for statistical purposes and for service status check. It displays the number of successful requests to the TSA in the past 5 minutes, the time of the latest successful response and the average response time of the TSA.
 The statistics are updated every 5 minutes.
 
 - JSON: [https://status.sk.ee/v1/tsa-stat.json](https://status.sk.ee/v1/tsa-stat.json)
 
-## 5.1 Structure
+## 4.1 Structure
 
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
@@ -256,7 +254,7 @@ The statistics are updated every 5 minutes.
 | avg_response_ms | float | Average response time over the past 5 minutes. |
 | json_created | _date/time_ | Date and time when the output was generated |
 
-## 5.2 Example json output
+## 4.2 Example json output
 ```
 [
   {
@@ -270,13 +268,13 @@ The statistics are updated every 5 minutes.
 ]
 ```
 
-# 6. Trust Services
+# 5. Trust Services
 The public monitoring of trust services interface provides JSON based information about availability of Mobile-ID and Smart-ID issuance services and CRL validity of critical CAs.<br>
 Interface generates ".json" file, using Zabbix API. Generating interval is 10 min.<br>
 Location of json file: https://status.sk.ee/v1/trust_srv.json<br>
 Location of test json file: https://status.sk.ee/v1/trust_srv_test.json
 
-## 6.1 Structure
+## 5.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | status | str | Status can be "OK" or "DOWN". </br>This indicator contains different servers and components according to the current service. Status is "OK" when all necessary servers are up and running and critical services respond for test queries. |
@@ -290,7 +288,7 @@ Location of test json file: https://status.sk.ee/v1/trust_srv_test.json
 | last_issuance | datetime | Time of last Smart-ID issuance. |
 | json_created | datetime | Time of creation for current json. </br>NB! This json cannot be older than 10 min, otherwise monitor itself is down. |
 
-## 6.2 Example json output
+## 5.2 Example json output
 ```
 {
     "CRL": {
@@ -335,12 +333,12 @@ Location of test json file: https://status.sk.ee/v1/trust_srv_test.json
 }
 ```
 
-# 7. General statistics interface
+# 6. General statistics interface
 Where ever needed, you can use these numbers to illustrate your presentations, analyses, website. 
 Data is available at  https://status.sk.ee/v1/cards.json
 Data is generated once a day and includes the data until 23:59 for the previous day.
 
-## 7.1 Descriptions of data objects
+## 6.1 Descriptions of data objects
 |  **Key** | **Description** |
 | --- | --- |
 | activeSID_LV | Number of active Smart-ID unique users in Latvia |
@@ -358,11 +356,11 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | activeSID_LT | Number of active Smart-ID unique users in Lithuania | 
 | reportExecuted | Date and time when data was generated |
 
-## 8. OCSP
+## 7. OCSP
 
 - JSON: [https://status.sk.ee/v1/tsa.json](https://status.sk.ee/v1/ocsp.json)
 
-### 8.1 Structure
+### 7.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | req_in_5min | int | Number of requests in the past 5 minutes |
@@ -370,7 +368,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 | avg_response_ms|float | Avaerage response time in the past 5 minutes |
 | json_created | _date/time_ | Date and time when the output was generated |
 
-### 8.2 Example json output
+### 7.2 Example json output
 ```
 [
   {
@@ -382,9 +380,33 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ]
 ```
 
-### 9. AIA OCSP
+### 8. AIA OCSP
 
 - JSON: [https://status.sk.ee/v1/ocsp_aia.json](https://status.sk.ee/v1/ocsp_aia.json)
+
+### 8.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms | float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
+
+### 8.2 Example json output
+```
+[
+  {
+    "req_in_5min": "953",
+    "latest_OK": "11/07/2018 20:39:00.015364",
+    "avg_response_ms": "5.7",
+     "json_created": "05/16/2019 15:55:11"
+  }
+]
+```
+
+### 9. PROXY OCSP 
+
+- JSON: [https://status.sk.ee/v1/ocsp_proxy.json](https://status.sk.ee/v1/ocsp_proxy.json)
 
 ### 9.1 Structure
 |  **Key** | **Type** | **Description** |
@@ -398,30 +420,6 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ```
 [
   {
-    "req_in_5min": "953",
-    "latest_OK": "11/07/2018 20:39:00.015364",
-    "avg_response_ms": "5.7",
-     "json_created": "05/16/2019 15:55:11"
-  }
-]
-```
-
-### 10. PROXY OCSP 
-
-- JSON: [https://status.sk.ee/v1/ocsp_proxy.json](https://status.sk.ee/v1/ocsp_proxy.json)
-
-### 10.1 Structure
-|  **Key** | **Type** | **Description** |
-| --- | --- | --- |
-| req_in_5min | int | Number of requests in the past 5 minutes |
-| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
-| avg_response_ms | float | Avaerage response time in the past 5 minutes |
-| json_created | _date/time_ | Date and time when the output was generated |
-
-### 10.2 Example json output
-```
-[
-  {
     "req_in_5min": "122",
     "latest_OK": "11/07/2018 20:39:25.215708",
     "avg_response_ms": "50.9",
@@ -430,7 +428,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 ]
 ```
 
-### 11. PROXY OCSP Details
+### 10. PROXY OCSP Details
 
 - JSON: [https://status.sk.ee/v1/ocsp_proxy_detail.json](https://status.sk.ee/v1/ocsp_proxy_detail.json)
 
@@ -438,7 +436,7 @@ This interface provides statistics on every proxied CA.
 Statistics wil be displayed for every CA that has responded in the past 5 minutes in a separate block.
 If a particular CA has not responded in the past 5 minutes - its block will be omitted.
 
-### 11.1 Structure
+### 10.1 Structure
 |  **Key** | **Type** | **Description** |
 | --- | --- | --- |
 | responder | text | Name of the responding CA |
@@ -447,7 +445,7 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
 | avg_response_ms |float | Avaerage response time in the past 5 minutes |
 | json_created | _date/time_ | Date and time when the output was generated |
 
-### 11.2 Example json output
+### 10.2 Example json output
 ```
 [
   {
@@ -460,13 +458,13 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
 ]
 ```
 
-### 12. MID REST
+### 11. MID REST
 
 Location: https://status.sk.ee/v1/mid-rest_live.json </br>
 Data is refreshed every 5 minutes. </br>
 The results for full 15 minutes, 2 minutes from now(), are counted. (earliest=-17m@m latest=-2m@m) </br>
 
-### 12.1 Structure
+### 11.1 Structure
 |**Key** | **Type** | **Description** | **Possible values** |
 | --- | --- | --- | --- |
 | Status | str | General status of the service | "OK" = Failrate is lower than 10% <br /> "WARNING" = Failrate is greater than 11% <br /> "CRITICAL" = Failrate is greater than 50% <br /> "UNKNOWN = There are less than 100 Total requests" | 
@@ -477,7 +475,7 @@ The results for full 15 minutes, 2 minutes from now(), are counted. (earliest=-1
 | Total | int | Total number of Mobile-ID requests for a given Operator | "<n>" |
 
 
-### 12.2 Example json output
+### 11.2 Example json output
 ```
 [
   {
