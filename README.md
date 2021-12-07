@@ -358,7 +358,7 @@ Data is generated once a day and includes the data until 23:59 for the previous 
 
 ## 7. OCSP
 
-- JSON: [https://status.sk.ee/v1/tsa.json](https://status.sk.ee/v1/ocsp.json)
+- JSON: [https://status.sk.ee/v1/ocsp.json](https://status.sk.ee/v1/ocsp.json)
 
 ### 7.1 Structure
 |  **Key** | **Type** | **Description** |
