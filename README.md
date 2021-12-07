@@ -52,7 +52,7 @@
 * [3. Time Stamping Authority Stats](#3-time-stamping-authority-stats)
     * [3.1 Structure](#31-structure)
     * [3.2 Example-json-output](#32-example-json-output)
-* [4. Time Stamping Authority Status](#4-tsa-status)
+* [4. Time Stamping Authority Status](#4-time-stamping-authority-status)
     * [4.1 Structure](#41-structure)
     * [4.2 Example-json-output](#42-example-json-output)
 * [5. Trust Services](#5-trust-services)
@@ -130,7 +130,7 @@ number of failed authentication or signing requests in the last 5 full minutes
 
 JSON data generation time
 
-## 1.2. Description of monitoring logic and failure rates
+## 1.2. Description of monitoring logic and failure rates of different components
 
 **OK**
 
