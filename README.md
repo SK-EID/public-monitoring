@@ -42,7 +42,7 @@
 | 1.0.27 | 16.11.2021 | Jevgeni Losak | Added Time Stamping Authority |
 
 # Table of Contents
-* [1. Mobile-ID](#1-mobile-id)
+* [1. Mobile-ID](#1-mobile-id-mid-rest)
     * [1.1. Structure](#11-structure)
     * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
     * [1.3. Example json output](#13-example-json-output)
