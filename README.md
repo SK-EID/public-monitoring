@@ -40,12 +40,12 @@
 | 1.0.25 | 10.09.2020 | Kristjan Koskor | Changed MID-REST monitoring is out of beta specification |
 | 1.0.26 | 09.07.2021 | Kristjan Koskor | Changed 'cards.json' URL |
 | 1.0.27 | 16.11.2021 | Jevgeni Losak | Added Time Stamping Authority |
+| 1.0.28 | 14.03.2022 | Kristjan Koskor | Removed references to depricated DigiDocService; Moved MID-REST info from point 11. to point 1. |
 
 # Table of Contents
-* [1. Mobile-ID](#1-mobile-id-mid-rest)
-    * [1.1. Structure](#11-structure)
-    * [1.2. Description of monitoring logic and failure rates of different components](#12-description-of-monitoring-logic-and-failure-rates-of-different-components)
-    * [1.3. Example json output](#13-example-json-output)
+* [1. Mobile-ID](#1-mobile-id)
+    * [1.1 Structure](#11-structure)
+    * [1.2 Example-json-output](#12-example-json-output)    
 * [2. Smart-ID](#2-smart-id)
     * [2.1 Structure](#21-structure)
     * [2.2 Example-json-output](#22-example-json-output)
@@ -72,9 +72,7 @@
 * [10. PROXY OCSP DETAILS](#10-proxy-ocsp-details)
     * [10.1 Structure](#101-structure)
     * [10.2 Example-json-output](#102-example-json-output)    
-* [11. MID REST](#11-mid-rest)
-    * [11.1 Structure](#111-structure)
-    * [11.2 Example-json-output](#112-example-json-output)    
+
 
 List of interfaces:
 
@@ -91,79 +89,83 @@ List of interfaces:
 
 # 1. Mobile-ID
 
-SK public monitoring interface provides JSON based information about availability of Mobile-ID service to mobile operator clients.
-This interface displays information about Mobile-ID transactions that use DigiDoc Service. If you're interested in MID-REST interface numbers, pleas see [11 MID REST](#11-mid-rest)
+Location: https://status.sk.ee/v1/mid-rest_live.json </br>
+Data is refreshed every 5 minutes. </br>
+The results for full 15 minutes, 2 minutes from now(), are counted. (earliest=-17m@m latest=-2m@m) </br>
 
-Interface generates ".json" files.
-Monitoring data is generated every 5 minutes.
+### 1.1 Structure
+|**Key** | **Type** | **Description** | **Possible values** |
+| --- | --- | --- | --- |
+| Status | str | General status of the service | "OK" = Failrate is lower than 10% <br /> "WARNING" = Failrate is greater than 11% <br /> "CRITICAL" = Failrate is greater than 50% <br /> "UNKNOWN = There are less than 100 Total requests" | 
+| Failrate | int | Failure rate percentage of total requests | 0-100 |
+| Failed | int | Number of failed requests | "USER_CANCELLED" - User cancelled the operation </br> "DELIVERY_ERROR" - error sending SMS </br> "NOT_MID_CLIENT" - Given user has no active certificates and is not Mobile-ID client </br> "PHONE_ABSENT" - SIM not available </br> "TIMEOUT" - There was a timeout, i.e. end user did not confirm or refuse the operation within a given time </br> "OK" - everything went fine </br> "SIGNATURE_HASH_MISMATCH" - Mobile-ID configuration on user's SIM card differs from what is configured on service provider's side. (User needs to contact his/her mobile operator.) </br> "null" - may be displayed in rare cases but technically counts as a timeout. </br> |
+| json_created | date/time | Date and time when the output was generated | "mm/dd/yyy hh:mm:ss" |
+| Operator | str | Name of Mobile Network Operator | "BITE-SK-LT" <br /> "ELISA-SK-EE" <br /> "EMT-SK-EE" <br /> "TELE2-SK-EE" <br /> "TELEDEMA-LT" <br /> "TELIA-SK-LT" |
+| Total | int | Total number of Mobile-ID requests for a given Operator | "<n>" |
 
-Location of file:
 
-- JSON: [https://status.sk.ee/v1/sk-dds-mid.json](https://status.sk.ee/v1/sk-dds-mid.json)
-
->NOTE: Teledema customers has insuficient data to be properly monitored. Hence, the output will only display hardstates of either "OK" or "UNKNOWN".
-
-## 1.1. Structure
-
- **Operator**
- 
- name of Mobile network operator 
- > operators with *-SK-* in their name are using SK's OTA service. 
- 
- **Status**
- 
- OK, WARNING, CRITICAL, UNKNOWN
- 
- **Failrate**
- 
- percentage of failed Mobile-ID authentication or signing requests in the last 5 full minutes
- 
- **Total**
- 
- total number of authentication or signing requests in the last 5 full minutes
- 
- **Failed**
- 
-number of failed authentication or signing requests in the last 5 full minutes
-
-**json_created**
-
-JSON data generation time
-
-## 1.2. Description of monitoring logic and failure rates of different components
-
-**OK**
-
-less than 10% of authentication or signing requests have failed in the last full 5 minutes
-
-**WARNING**
-
-more than 10% of authentication or signing requests have failed in the last full 5 minutes
-
-**CRITICAL**
-
-100% of authentication or signing requests have failed in the last full 5 minutes
-
-**UNKNOWN** 
-
-less than 100 authentication or signing requests in the last full 5 minutes
-insuficient data to evaluate status
-
-## 1.3. Example json output
-
+### 1.2 Example json output
 ```
-  [
+[
   {
     "Status": "OK", 
-    "Failrate": "6.134969325153374", 
-    "Failed": "10", 
-    "json_created": "03/09/2020 18:30:23", 
-    "Operator": "BITE-SK-LT", 
-    "Total": "163"
+    "Failrate": "7.61", 
+    "Failed": "21", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'BITE-SK-LT'", 
+    "Total": "276"
   }, 
-  ...
+  {
+    "Status": "OK", 
+    "Failrate": "2.65", 
+    "Failed": "22", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'ELISA-SK-EE'", 
+    "Total": "831"
+  }, 
+  {
+    "Status": "OK", 
+    "Failrate": "2.78", 
+    "Failed": "37", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'EMT-SK-EE'", 
+    "Total": "1331"
+  }, 
+  {
+    "Status": "OK", 
+    "Failrate": "6.44", 
+    "Failed": "30", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'TELE2-SK-EE'", 
+    "Total": "466"
+  }, 
+  {
+    "Status": "OK", 
+    "Failrate": "4.08", 
+    "Failed": "23", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'TELE2-SK-LT'", 
+    "Total": "564"
+  }, 
+  {
+    "Status": "UNKNOWN", 
+    "Failrate": "12.50", 
+    "Failed": "1", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'TELEDEMA-LT'", 
+    "Total": "8"
+  }, 
+  {
+    "Status": "OK", 
+    "Failrate": "3.64", 
+    "Failed": "16", 
+    "json_created": "09/10/2020 12:30:19", 
+    "Operator": "'TELIA-SK-LT'", 
+    "Total": "440"
+  }
 ]
 ```
+
 
 # 2. Smart-ID
 
@@ -454,85 +456,6 @@ If a particular CA has not responded in the past 5 minutes - its block will be o
     "latest_OK": "11/07/2018 20:39:25.215708",
     "avg_response_ms": "50.9",
     "json_created": "05/16/2019 15:55:11"
-  }
-]
-```
-
-### 11. MID REST
-
-Location: https://status.sk.ee/v1/mid-rest_live.json </br>
-Data is refreshed every 5 minutes. </br>
-The results for full 15 minutes, 2 minutes from now(), are counted. (earliest=-17m@m latest=-2m@m) </br>
-
-### 11.1 Structure
-|**Key** | **Type** | **Description** | **Possible values** |
-| --- | --- | --- | --- |
-| Status | str | General status of the service | "OK" = Failrate is lower than 10% <br /> "WARNING" = Failrate is greater than 11% <br /> "CRITICAL" = Failrate is greater than 50% <br /> "UNKNOWN = There are less than 100 Total requests" | 
-| Failrate | int | Failure rate percentage of total requests | 0-100 |
-| Failed | int | Number of failed requests | "USER_CANCELLED" - User cancelled the operation </br> "DELIVERY_ERROR" - error sending SMS </br> "NOT_MID_CLIENT" - Given user has no active certificates and is not Mobile-ID client </br> "PHONE_ABSENT" - SIM not available </br> "TIMEOUT" - There was a timeout, i.e. end user did not confirm or refuse the operation within a given time </br> "OK" - everything went fine </br> "SIGNATURE_HASH_MISMATCH" - Mobile-ID configuration on user's SIM card differs from what is configured on service provider's side. (User needs to contact his/her mobile operator.) </br> "null" - may be displayed in rare cases but technically counts as a timeout. </br> |
-| json_created | date/time | Date and time when the output was generated | "mm/dd/yyy hh:mm:ss" |
-| Operator | str | Name of Mobile Network Operator | "BITE-SK-LT" <br /> "ELISA-SK-EE" <br /> "EMT-SK-EE" <br /> "TELE2-SK-EE" <br /> "TELEDEMA-LT" <br /> "TELIA-SK-LT" |
-| Total | int | Total number of Mobile-ID requests for a given Operator | "<n>" |
-
-
-### 11.2 Example json output
-```
-[
-  {
-    "Status": "OK", 
-    "Failrate": "7.61", 
-    "Failed": "21", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'BITE-SK-LT'", 
-    "Total": "276"
-  }, 
-  {
-    "Status": "OK", 
-    "Failrate": "2.65", 
-    "Failed": "22", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'ELISA-SK-EE'", 
-    "Total": "831"
-  }, 
-  {
-    "Status": "OK", 
-    "Failrate": "2.78", 
-    "Failed": "37", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'EMT-SK-EE'", 
-    "Total": "1331"
-  }, 
-  {
-    "Status": "OK", 
-    "Failrate": "6.44", 
-    "Failed": "30", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'TELE2-SK-EE'", 
-    "Total": "466"
-  }, 
-  {
-    "Status": "OK", 
-    "Failrate": "4.08", 
-    "Failed": "23", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'TELE2-SK-LT'", 
-    "Total": "564"
-  }, 
-  {
-    "Status": "UNKNOWN", 
-    "Failrate": "12.50", 
-    "Failed": "1", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'TELEDEMA-LT'", 
-    "Total": "8"
-  }, 
-  {
-    "Status": "OK", 
-    "Failrate": "3.64", 
-    "Failed": "16", 
-    "json_created": "09/10/2020 12:30:19", 
-    "Operator": "'TELIA-SK-LT'", 
-    "Total": "440"
   }
 ]
 ```
