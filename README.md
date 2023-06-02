@@ -41,6 +41,7 @@
 | 1.0.26 | 09.07.2021 | Kristjan Koskor | Changed 'cards.json' URL |
 | 1.0.27 | 16.11.2021 | Jevgeni Losak | Added Time Stamping Authority |
 | 1.0.28 | 14.03.2022 | Kristjan Koskor | Removed references to depricated DigiDocService; Moved MID-REST info from point 11. to point 1. |
+| 1.0.29 | 02.06.2022 | Jevgeni Losak | Removed ocsp_proxy and ocsp_proxy_detail from the list  |
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -83,8 +84,6 @@ List of interfaces:
 | [_tsa_](https://status.sk.ee/v1/tsa.json) | Time-Stamping Authority statistics |
 | [_ocsp_](https://status.sk.ee/v1/ocsp.json) | OCSP Statistics |
 | [_ocsp_aia_](https://status.sk.ee/v1/ocsp_aia.json) | AIA OCSP Statistics |
-| [_ocsp_proxy_](https://status.sk.ee/v1/ocsp_proxy.json) | Proxy OCSP Statistics |
-| [_ocsp_proxy_detail_](https://status.sk.ee/v1/ocsp_proxy_detail.json) | Proxy OCSP Statistics by CA|
 
 
 # 1. Mobile-ID
@@ -402,60 +401,6 @@ Data is generated once a day and includes the data until 23:59 for the previous 
     "latest_OK": "11/07/2018 20:39:00.015364",
     "avg_response_ms": "5.7",
      "json_created": "05/16/2019 15:55:11"
-  }
-]
-```
-
-### 9. PROXY OCSP 
-
-- JSON: [https://status.sk.ee/v1/ocsp_proxy.json](https://status.sk.ee/v1/ocsp_proxy.json)
-
-### 9.1 Structure
-|  **Key** | **Type** | **Description** |
-| --- | --- | --- |
-| req_in_5min | int | Number of requests in the past 5 minutes |
-| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
-| avg_response_ms | float | Avaerage response time in the past 5 minutes |
-| json_created | _date/time_ | Date and time when the output was generated |
-
-### 9.2 Example json output
-```
-[
-  {
-    "req_in_5min": "122",
-    "latest_OK": "11/07/2018 20:39:25.215708",
-    "avg_response_ms": "50.9",
-     "json_created": "05/16/2019 15:55:11"
-  }
-]
-```
-
-### 10. PROXY OCSP Details
-
-- JSON: [https://status.sk.ee/v1/ocsp_proxy_detail.json](https://status.sk.ee/v1/ocsp_proxy_detail.json)
-
-This interface provides statistics on every proxied CA.
-Statistics wil be displayed for every CA that has responded in the past 5 minutes in a separate block.
-If a particular CA has not responded in the past 5 minutes - its block will be omitted.
-
-### 10.1 Structure
-|  **Key** | **Type** | **Description** |
-| --- | --- | --- |
-| responder | text | Name of the responding CA |
-| resp_in_5min | int | Number of responses in the past 5 minutes from the particular CA |
-| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
-| avg_response_ms |float | Avaerage response time in the past 5 minutes |
-| json_created | _date/time_ | Date and time when the output was generated |
-
-### 10.2 Example json output
-```
-[
-  {
-    "responder": "ocsp2.rcsc.lt",
-    "resp_in_5min": "122",
-    "latest_OK": "11/07/2018 20:39:25.215708",
-    "avg_response_ms": "50.9",
-    "json_created": "05/16/2019 15:55:11"
   }
 ]
 ```
