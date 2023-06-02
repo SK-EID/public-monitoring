@@ -41,7 +41,7 @@
 | 1.0.26 | 09.07.2021 | Kristjan Koskor | Changed 'cards.json' URL |
 | 1.0.27 | 16.11.2021 | Jevgeni Losak | Added Time Stamping Authority |
 | 1.0.28 | 14.03.2022 | Kristjan Koskor | Removed references to depricated DigiDocService; Moved MID-REST info from point 11. to point 1. |
-| 1.0.29 | 02.06.2022 | Jevgeni Losak | Removed ocsp_proxy and ocsp_proxy_detail from the list  |
+| 1.0.29 | 02.06.2023 | Jevgeni Losak | Removed ocsp_proxy and ocsp_proxy_detail from the list  |
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
