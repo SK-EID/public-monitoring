@@ -42,6 +42,8 @@
 | 1.0.27 | 16.11.2021 | Jevgeni Losak | Added Time Stamping Authority |
 | 1.0.28 | 14.03.2022 | Kristjan Koskor | Removed references to depricated DigiDocService; Moved MID-REST info from point 11. to point 1. |
 | 1.0.29 | 02.06.2023 | Jevgeni Losak | Removed ocsp_proxy and ocsp_proxy_detail from the list  |
+| 1.0.30 | 17.05.2024 | Jevgeni Losak | Added ocsp-ca and ocsp-aia-ca  |
+
 
 # Table of Contents
 * [1. Mobile-ID](#1-mobile-id)
@@ -67,10 +69,10 @@
 * [8. AIA OCSP](#8-aia-ocsp)
     * [8.1 Structure](#81-structure)
     * [8.2 Example-json-output](#82-example-json-output)
-* [9. PROXY OCSP](#9-proxy-ocsp)
+* [9. OCSP CA](#9-ocsp-ca)
     * [9.1 Structure](#91-structure)
     * [9.2 Example-json-output](#92-example-json-output)
-* [10. PROXY OCSP DETAILS](#10-proxy-ocsp-details)
+* [10. OCSP AIA CA](#10-ocsp-aia-ca)
     * [10.1 Structure](#101-structure)
     * [10.2 Example-json-output](#102-example-json-output)    
 
@@ -401,6 +403,58 @@ Data is generated once a day and includes the data until 23:59 for the previous 
     "latest_OK": "11/07/2018 20:39:00.015364",
     "avg_response_ms": "5.7",
      "json_created": "05/16/2019 15:55:11"
+  }
+]
+```
+
+### 9. OCSP CA
+
+- JSON: [https://status.sk.ee/v1/ocsp-ca.json](https://status.sk.ee/v1/ocsp-ca.json)
+
+### 9.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| CN: | str | common name of responder |
+| avg_response_ms | float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
+
+### 9.2 Example json output
+```
+[
+  {
+    "req_in_5min": "285", 
+    "latest_OK": "05/17/2024 14:42:26.445", 
+    "CN": "ESTEID2015", 
+    "avg_response_ms": "4.4", 
+    "json_created": "05/17/2024 14:45:31"
+  }
+]
+```
+
+### 10. OCSP AIA CA
+
+- JSON: [https://status.sk.ee/v1/ocsp-aia-ca.json](https://status.sk.ee/v1/ocsp-aia-ca.json)
+
+### 10.1 Structure
+|  **Key** | **Type** | **Description** |
+| --- | --- | --- |
+| profile | str | name of responder |
+| req_in_5min | int | Number of requests in the past 5 minutes |
+| latest_OK | datetime | Date and time of the last RFC2560 'good' response |
+| avg_response_ms | float | Avaerage response time in the past 5 minutes |
+| json_created | _date/time_ | Date and time when the output was generated |
+
+### 10.2 Example json output
+```
+[
+  {
+    "profile": "EID-NQ-16", 
+    "req_in_5min": "242", 
+    "latest_OK": "05/17/2024 14:41:36.083629", 
+    "avg_response_ms": "1.0", 
+    "json_created": "05/17/2024 14:45:37"
   }
 ]
 ```
